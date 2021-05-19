@@ -10,7 +10,6 @@ use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Vinkla\Hashids\Facades\Hashids;
 use File;
-use App\Models\Lecturer;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\QueryException;
 
@@ -26,9 +25,11 @@ class UserController extends Controller
         $data = [
             'title' => 'Users',
             'mod'   => 'mod_user',
-            'users' => User::whereHas('roles', function($q) { $q->where('name', '!=', 'Developer'); })->get(),
+            'users' => User::whereHas('roles', function ($q) {
+                $q->where('name', '!=', 'Developer');
+            })->get(),
         ];
-        return view('admin.'. $this->defaultLayout, $data);
+        return view('admin.' . $this->defaultLayout, $data);
     }
 
     /**
@@ -42,10 +43,9 @@ class UserController extends Controller
             'title' => 'Tambah User Baru',
             'mod'   => 'mod_user',
             'roles' => Role::where('name', '!=', 'Developer')->get(),
-            'lecturers' => Lecturer::all(),
             'action' => '/administrator/users/store'
         ];
-        return view('admin.'. $this->defaultLayout('user.form'), $data);
+        return view('admin.' . $this->defaultLayout('user.form'), $data);
     }
 
     /**
@@ -65,7 +65,6 @@ class UserController extends Controller
                 'password'  => 'required',
                 'block'     => 'required',
                 'picture'   => 'image|mimes:jpg,jpeg,png,gif',
-                'lecturer'  => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -82,7 +81,6 @@ class UserController extends Controller
                         $request->file('picture')->move(public_path($path), $fileName);
                     }
                     $user = User::create([
-                        'lecturer_id' => $request->lecturer,
                         'name'      => $request->name,
                         'username'  => $request->username,
                         'email'     => $request->email,
@@ -124,7 +122,7 @@ class UserController extends Controller
             'mod'   => 'mod_user',
             'user' => User::with('roles')->find($ids[0]),
         ];
-        return view('admin.'. $this->defaultLayout('user.detail'), $data);
+        return view('admin.' . $this->defaultLayout('user.detail'), $data);
     }
 
     /**
@@ -141,10 +139,9 @@ class UserController extends Controller
             'mod'   => 'mod_user',
             'roles' => Role::where('name', '!=', 'Developer')->get(),
             'user' => User::with('roles')->find($ids[0]),
-            'lecturers' => Lecturer::all(),
             'action' => '/administrator/users/' . $id . '/update'
         ];
-        return view('admin.'. $this->defaultLayout('user.form'), $data);
+        return view('admin.' . $this->defaultLayout('user.form'), $data);
     }
 
     /**
@@ -165,9 +162,6 @@ class UserController extends Controller
                 'email'     => 'required|email',
                 'block'     => 'required',
                 'picture'   => 'image|mimes:jpg,jpeg,png,gif',
-                'lecturer'  => Rule::requiredIf(function () use ($user) {
-                    return $user->roles[0]['name'] != 'Developer';
-                }),
             ]);
 
             if ($validator->fails()) {
@@ -188,7 +182,6 @@ class UserController extends Controller
                         $request->file('picture')->move(public_path($path), $fileName);
                     }
                     $userUpdate = User::where('id', $ids[0])->update([
-                        'lecturer_id' => $request->lecturer,
                         'name'      => $request->name,
                         'username'  => $request->username,
                         'email'     => $request->email,
@@ -199,7 +192,7 @@ class UserController extends Controller
                         'updated_by' => \getInfoLogin()->id
                     ]);
 
-                    if($user->roles[0]['name'] != 'Developer'){
+                    if ($user->roles[0]['name'] != 'Developer') {
 
                         $user->syncRoles($request->role);
                     }
@@ -229,13 +222,13 @@ class UserController extends Controller
     {
         $ids = Hashids::decode($id);
 
-        if(\Request::ajax()){
-            try{
+        if (\Request::ajax()) {
+            try {
                 $user = User::find($ids[0]);
                 $user->delete();
 
                 return response()->json(['msg' => 'Data berhasil dihapus'], 200);
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 return response()->json(['msg' => $e->getMessage()], 500);
             }
         } else {
@@ -250,7 +243,7 @@ class UserController extends Controller
             'title' => 'Ubah Password',
             'mod'   => 'mod_user',
         ];
-        return view('admin.'. $this->defaultLayout('user.password'), $data);
+        return view('admin.' . $this->defaultLayout('user.password'), $data);
     }
 
     public function updatePassword(Request $request)

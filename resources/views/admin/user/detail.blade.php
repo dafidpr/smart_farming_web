@@ -74,12 +74,6 @@
                                         <span class="profile-ud-value">{{ $user->phone_number }}</span>
                                     </div>
                                 </div>
-                                <div class="profile-ud-item">
-                                    <div class="profile-ud wider">
-                                        <span class="profile-ud-label">Dosen</span>
-                                        <span class="profile-ud-value">{{ $user->lecturer_id != null ?  $user->lecturer->name : 'Root' }}</span>
-                                    </div>
-                                </div>
                             </div><!-- .profile-ud-list -->
                         </div><!-- .nk-block -->
                         <div class="nk-block">
