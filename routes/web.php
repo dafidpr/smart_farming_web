@@ -76,16 +76,4 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
         Route::post('{id}/update', [SettingController::class, 'update'])->middleware('can:update-settings');
         Route::post('{id}/maintenance', [SettingController::class, 'maintenanceMode'])->middleware('can:update-settings');
     });
-
-    // Help Center
-    Route::prefix('guides')->group(function () {
-        Route::get('', [GuideController::class, 'index']);
-        Route::get('{id}/show', [GuideController::class, 'show']);
-        Route::post('{id}/update', [GuideController::class, 'update']);
-        Route::post('store', [GuideController::class, 'store']);
-        Route::delete('{id}/delete', [GuideController::class, 'destroy'])->name('guide.destroy');
-        Route::delete('multipleDelete', [GuideController::class, 'multipleDelete'])->name('guide.bulk-destroy');
-    });
-
-    Route::get('/manuals', [GuideController::class, 'guides']);
 });

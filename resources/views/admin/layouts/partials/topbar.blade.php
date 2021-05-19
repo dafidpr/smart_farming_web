@@ -60,7 +60,6 @@
                                     @endif
                                    
                                     <li><a class="ajaxAction" href="/administrator/users/change_password"><em class="icon ni ni-shield-star"></em><span>Ubah Password</span></a></li>
-                                    <li><a class="ajaxAction" href="/administrator/manuals"><em class="icon ni ni-help"></em><span>Panduan Pengguna</span></a></li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">
