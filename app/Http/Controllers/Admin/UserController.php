@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Farmer;
+use App\Models\FarmerGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +45,7 @@ class UserController extends Controller
             'title' => 'Tambah User Baru',
             'mod'   => 'mod_user',
             'roles' => Role::where('name', '!=', 'Developer')->get(),
+            'farmerGroups' => FarmerGroup::all(),
             'action' => '/administrator/users/store'
         ];
         return view('admin.' . $this->defaultLayout('user.form'), $data);
@@ -65,6 +68,7 @@ class UserController extends Controller
                 'password'  => 'required',
                 'block'     => 'required',
                 'picture'   => 'image|mimes:jpg,jpeg,png,gif',
+                'farmer_group'  => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -81,6 +85,7 @@ class UserController extends Controller
                         $request->file('picture')->move(public_path($path), $fileName);
                     }
                     $user = User::create([
+                        'farmer_group_id' => $request->farmer_group,
                         'name'      => $request->name,
                         'username'  => $request->username,
                         'email'     => $request->email,
@@ -139,6 +144,7 @@ class UserController extends Controller
             'mod'   => 'mod_user',
             'roles' => Role::where('name', '!=', 'Developer')->get(),
             'user' => User::with('roles')->find($ids[0]),
+            'farmerGroups' => FarmerGroup::all(),
             'action' => '/administrator/users/' . $id . '/update'
         ];
         return view('admin.' . $this->defaultLayout('user.form'), $data);
@@ -162,6 +168,9 @@ class UserController extends Controller
                 'email'     => 'required|email',
                 'block'     => 'required',
                 'picture'   => 'image|mimes:jpg,jpeg,png,gif',
+                'farmer_group'  => Rule::requiredIf(function () use ($user) {
+                    return $user->roles[0]['name'] != 'Developer';
+                }),
             ]);
 
             if ($validator->fails()) {
@@ -182,6 +191,7 @@ class UserController extends Controller
                         $request->file('picture')->move(public_path($path), $fileName);
                     }
                     $userUpdate = User::where('id', $ids[0])->update([
+                        'farmer_group_id' => $request->farmer_group,
                         'name'      => $request->name,
                         'username'  => $request->username,
                         'email'     => $request->email,

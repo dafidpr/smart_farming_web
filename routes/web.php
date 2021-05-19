@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\GuideController;
+use App\Http\Controllers\Admin\FarmerGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,12 +60,20 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
         Route::post('{id}/change-permission', [RoleController::class, 'changePermission'])->middleware('can:update-roles');
     });
 
-    // Permissions
-    Route::prefix('permissions')->group(function () {
-        Route::get('', [PermissionController::class, 'index'])->middleware('can:read-permissions');
-        Route::post('store', [PermissionController::class, 'store'])->middleware('can:create-permissions');
-        Route::delete('{id}/delete', [PermissionController::class, 'destroy'])->middleware('can:delete-permissions')->name('permission.destroy');
-        Route::delete('multipleDelete', [PermissionController::class, 'multipleDelete'])->middleware('can:delete-permissions')->name('permission.bulk-destroy');
+    // Farmer Groups
+    Route::prefix('farmer-groups')->group(function () {
+        Route::get('', [FarmerGroupController::class, 'index'])->middleware('can:read-farmer-groups');
+        Route::post('store', [FarmerGroupController::class, 'store'])->middleware('can:create-farmer-groups');
+        Route::delete('{id}/delete', [FarmerGroupController::class, 'destroy'])->middleware('can:delete-farmer-groups')->name('farmer-group.destroy');
+        Route::delete('multipleDelete', [FarmerGroupController::class, 'multipleDelete'])->middleware('can:delete-farmer-groups')->name('farmer-group.bulk-destroy');
+    });
+
+    // Farmers
+    Route::prefix('farmers')->group(function () {
+        Route::get('', [FarmerGroupController::class, 'index'])->middleware('can:read-farmers');
+        Route::post('store', [FarmerGroupController::class, 'store'])->middleware('can:create-farmers');
+        Route::delete('{id}/delete', [FarmerGroupController::class, 'destroy'])->middleware('can:delete-farmers')->name('farmers.destroy');
+        Route::delete('multipleDelete', [FarmerGroupController::class, 'multipleDelete'])->middleware('can:delete-farmers')->name('farmers.bulk-destroy');
     });
 
     // Settings

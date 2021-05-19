@@ -94,13 +94,36 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label class="form-label">Kelompok Tani <span class="text-danger">*</span></label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select form-control form-control-lg" data-placeholder="{{ isset($user->name) ? ($user->roles[0]->name == 'Developer' ? 'Anda Sebagai Developer' : 'Pilih Kelompok Tani') : 'Pilih Kelompok Tani' }}" data-search="on" name="farmer_group">
+                                            @foreach ($farmerGroups as $item)
+                                                @if (isset($user->farmer_group_id) OR isset($user->name))
+                                                    @if ($user->roles[0]->name != 'Developer')
+                                                        @if ($item->id == $user->farmer_group_id)
+                                                            <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                                        @else
+                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endif
+                                                    @endif
+                                                @else
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        <i class="text-danger small d-none" id="farmerGroupErr"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
                                     <label class="form-label" for="default-01">Nomor Telepon</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" autocomplete="off" value="{{ isset($user->phone_number) ? $user->phone_number : '' }}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="form-label">Block <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
@@ -117,7 +140,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="form-label" for="default-06">Picture</label>
                                     <div class="form-control-wrap">

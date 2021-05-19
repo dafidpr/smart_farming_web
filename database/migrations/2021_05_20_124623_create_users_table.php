@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('farmer_group_id')->nullable();
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
@@ -29,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->integer('updated_by');
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('farmer_group_id')->references('id')->on('farmer_groups')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

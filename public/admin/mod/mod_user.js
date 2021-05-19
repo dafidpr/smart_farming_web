@@ -24,8 +24,8 @@ var displayErrors = [
         inputName: 'block'
     },
     {
-        display: '#lecturerErr',
-        inputName: 'lecturer'
+        display: '#farmerGroupErr',
+        inputName: 'farmer_group'
     },
     {
         display: '#picErr',

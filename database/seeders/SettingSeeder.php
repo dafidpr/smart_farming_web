@@ -19,7 +19,7 @@ class SettingSeeder extends Seeder
             [
                 'groups' => 'General',
                 'options' => 'web_name',
-                'value' => 'SIMLITABMAS',
+                'value' => 'SMART FARMING',
                 'is_default' => 'Y',
                 'created_by' => '1',
                 'updated_by' => '1',

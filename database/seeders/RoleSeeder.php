@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
         ]);
 
         $administratorRole = Role::create([
-            'name' => 'Administrator',
+            'name' => 'Ketua Kelompok Tani',
             'guard_name' => 'web',
             'is_default' => 'Y'
         ]);
@@ -30,6 +30,8 @@ class RoleSeeder extends Seeder
         $developerRole->givePermissionTo(['read-dashboard', 'read-roles', 'create-roles', 'update-roles', 'delete-roles']);
         $developerRole->givePermissionTo(['read-permissions', 'create-permissions', 'update-permissions', 'delete-permissions']);
         $developerRole->givePermissionTo(['read-users', 'create-users', 'update-users', 'delete-users']);
+        $developerRole->givePermissionTo(['read-farmer-groups', 'create-farmer-groups', 'update-farmer-groups', 'delete-farmer-groups']);
+        $developerRole->givePermissionTo(['read-farmers', 'create-farmers', 'update-farmers', 'delete-farmers']);
         $developerRole->givePermissionTo(['read-settings', 'update-settings']);
         $developerRole->givePermissionTo('read-dashboard');
     }

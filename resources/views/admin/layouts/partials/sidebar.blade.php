@@ -28,48 +28,43 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                         @endcan
-                        @canany(['read-users','read-roles','read-permissions'])
+                        @canany(['read-users','read-roles','read-farmers', 'farmer-groups'])
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Applications</h6>
                             </li><!-- .nk-menu-heading -->
                         @endcanany
-                        @canany(['read-users','read-roles'])
-                            <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                    <span class="nk-menu-text">Management Users</span>
-                                </a>
-                                <ul class="nk-menu-sub">
-                                    @can('read-users')
-                                        <li class="nk-menu-item">
-                                            <a href="/administrator/users" class="ajaxAction nk-menu-link"><span class="nk-menu-text">Users</span></a>
-                                        </li>
-                                    @endcan
-                                    @can('read-roles')
-                                        <li class="nk-menu-item">
-                                            <a href="/administrator/roles" class="ajaxAction nk-menu-link"><span class="nk-menu-text">Roles</span></a>
-                                        </li>
-                                    @endcan
-                                </ul><!-- .nk-menu-sub -->
-                            </li><!-- .nk-menu-item -->
-                        @endcanany
-                        @can('read-permissions')
+                        @can('read-farmer-groups')     
                             <li class="nk-menu-item">
-                                <a href="/administrator/permissions" class="ajaxAction nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-security"></em></span>
-                                    <span class="nk-menu-text">Permissions</span>
+                                <a href="/administrator/farmer-groups" class="ajaxAction nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-home-alt"></em></span>
+                                    <span class="nk-menu-text">Data Kelompok Tani</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                         @endcan
-                        <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Help Center</h6>
-                        </li><!-- .nk-menu-heading -->
-                        <li class="nk-menu-item">
-                            <a href="/administrator/guides" class="ajaxAction nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-help"></em></span>
-                                <span class="nk-menu-text">Master Panduan</span>
-                            </a>
-                        </li><!-- .nk-menu-item -->
+                        @can('read-farmers')
+                            <li class="nk-menu-item">
+                                <a href="/administrator/farmers" class="ajaxAction nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Data Petani</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
+                        @can('read-users')
+                            <li class="nk-menu-item">
+                                <a href="/administrator/users" class="ajaxAction nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                    <span class="nk-menu-text">Users</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
+                        @can('read-roles')
+                            <li class="nk-menu-item">
+                                <a href="/administrator/roles" class="ajaxAction nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-security"></em></span>
+                                    <span class="nk-menu-text">Roles</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
                         @canany(['read-settings'])
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Settings</h6>

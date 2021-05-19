@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\Lecturer;
+use App\Models\FarmerGroup;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
@@ -20,8 +20,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [ 
-        'lecturer_id','name','username','email','password','block','picture', 'phone_number','created_by','updated_by'
+    protected $fillable = [
+        'farmer_group_id', 'name', 'username', 'email', 'password', 'block', 'picture', 'phone_number', 'created_by', 'updated_by'
     ];
 
     /**
@@ -43,9 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function lecturer()
+    public function farmerGroup()
     {
-        return $this->belongsTo(Lecturer::class);
+        return $this->belongsTo(FarmerGroup::class);
     }
 
     protected $dates = ['deleted_at'];
