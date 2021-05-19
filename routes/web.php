@@ -43,6 +43,7 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
         Route::post('{id}/block', [UserController::class, 'blockUser'])->middleware('can:update-users');
         Route::post('{id}/update', [UserController::class, 'update'])->middleware('can:update-users');
         Route::delete('{id}/delete', [UserController::class, 'destroy'])->middleware('can:delete-users');
+        Route::delete('multipleDelete', [UserController::class, 'multipleDelete'])->middleware('can:delete-users');
         Route::get('change_password', [UserController::class, 'changePassword']);
         Route::post('change_password/update_password', [UserController::class, 'updatePassword']);
     });
@@ -63,7 +64,10 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
     // Farmer Groups
     Route::prefix('farmer-groups')->group(function () {
         Route::get('', [FarmerGroupController::class, 'index'])->middleware('can:read-farmer-groups');
+        Route::get('create', [FarmerGroupController::class, 'create'])->middleware('can:create-farmer-groups');
         Route::post('store', [FarmerGroupController::class, 'store'])->middleware('can:create-farmer-groups');
+        Route::get('{id}/edit', [FarmerGroupController::class, 'edit'])->middleware('can:update-farmer-groups');
+        Route::post('{id}/update', [FarmerGroupController::class, 'update'])->middleware('can:update-farmer-groups');
         Route::delete('{id}/delete', [FarmerGroupController::class, 'destroy'])->middleware('can:delete-farmer-groups')->name('farmer-group.destroy');
         Route::delete('multipleDelete', [FarmerGroupController::class, 'multipleDelete'])->middleware('can:delete-farmer-groups')->name('farmer-group.bulk-destroy');
     });

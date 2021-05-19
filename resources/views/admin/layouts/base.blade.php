@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/dashlite.css?ver=2.2.0') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/style.css') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/assets/css/theme.css?ver=2.2.0') }}">
- 
-    <!-- Start datatable css -->
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/buttons.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/responsive.bootstrap4.min.css') }}"> --}}
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+
+
     <script>
         var url = '{{ url("") }}';
+        var map_token = 'pk.eyJ1Ijoid2VibWVkaWEyNyIsImEiOiJjazg5dGFrd2wwM3N6M2dyeGRiYmtxMjZiIn0.0BobJA3lBPZKlAdMRq1OPA';
     </script>
 </head>
 

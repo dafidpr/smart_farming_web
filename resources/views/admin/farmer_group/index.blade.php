@@ -7,7 +7,7 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">{{ $title }}</h3>
                 <div class="nk-block-des text-soft">
-                    <p>You have total {{ $users->count() }} users.</p>
+                    <p>You have total {{ $farmerGroups->count() }} kelompok tani.</p>
                 </div>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
@@ -15,8 +15,8 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            @can('create-users')
-                                <li><a href="/administrator/users/create" class="ajaxAction btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Tambah User Baru</span></a></li>
+                            @can('create-farmer-groups')
+                                <li><a href="/administrator/farmer-groups/create" class="ajaxAction btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Tambah Kelompok Tani</span></a></li>
                             @endcan
                         </ul>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="card-inner position-relative card-tools-toggle">
                     <div class="card-title-group">
                         <div class="card-tools">
-                            @can('delete-users')     
+                            @can('delete-farmer-groups')     
                             <div class="form-inline flex-nowrap gx-3">
                                 <div class="form-wrap w-150px">
                                     <select class="form-select form-select-sm" name="action" data-search="off" data-placeholder="Bulk Action">
@@ -39,8 +39,8 @@
                                     </select>
                                 </div>
                                 <div class="btn-wrap">
-                                    <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light bulk-action" data-url="/administrator/users/multipleDelete">Apply</button></span>
-                                    <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon bulk-action" data-url="/administrator/users/multipleDelete"><em class="icon ni ni-arrow-right"></em></button></span>
+                                    <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light bulk-action" data-url="/administrator/farmer-groups/multipleDelete">Apply</button></span>
+                                    <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon bulk-action" data-url="/administrator/farmer-groups/multipleDelete"><em class="icon ni ni-arrow-right"></em></button></span>
                                 </div>
                             </div><!-- .form-inline -->
                             @endcan
@@ -57,19 +57,15 @@
                                         <label class="custom-control-label" for="uid"></label>
                                     </div>
                                 </th>
-                                <th class="nk-tb-col"><span class="sub-text">Nama Lengkap</span></th>
-                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Email</span></th>
-                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Telepon</span></th>
-                                <th class="nk-tb-col tb-col-lg"><span class="sub-text">Role</span></th>
-                                <th class="nk-tb-col tb-col-lg"><span class="sub-text">Terakhir Login</span></th>
-                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
+                                <th class="nk-tb-col"><span class="sub-text">Nama Kelompok Tani</span></th>
+                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Nama Ketua</span></th>
+                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Tahun Terbentuk</span></th>
+                                <th class="nk-tb-col tb-col-lg"><span class="sub-text">Alamat</span></th>
                                 <th class="nk-tb-col nk-tb-col-tools text-right"></th>
                             </tr>
                         </thead><!-- .nk-tb-item -->
                         <tbody>
-                            @foreach ($users as $item) 
-                            @if ($item->roles[0]['name'] != 'Developer')
-                                
+                            @foreach ($farmerGroups as $item) 
                                 <tr class="nk-tb-item">
                                     <td class="nk-tb-col nk-tb-col-check">
                                         <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -78,51 +74,39 @@
                                         </div>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <a href="#">
+                                        <div>
                                             <div class="user-card">
-                                                <div class="user-avatar bg-primary">
-                                                <img src="{{ asset('admin/uploads/img/profile').'/'.$item->picture }}" alt="">
-                                                </div>
                                                 <div class="user-info">
                                                     <span class="tb-lead">{{ $item->name }}</span>
-                                                    <span>{{ $item->username }}</span>
+                                                    <ul class="list-status">
+                                                        <li><em class="icon ni ni-alert-circle"></em> <span>Jumlah Anggota : {{ $item->number_of_members }}</span></li>
+                                                    </ul>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </td>
                                     <td class="nk-tb-col tb-col-mb">
-                                        <span>{{ $item->email }}</span>
+                                        <span>{{ $item->chairman }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $item->phone_number }}</span>
+                                        <span>{{ $item->year_formed }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-lg">
-                                        <span><em class="icon ni ni-shield-star"></em> {{ $item->roles[0]['name'] }}</span>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <span>{{ $item->last_login }}</span>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md">
-                                        <span class="badge badge-dot badge-{{$item->block == 'Y' ? 'danger' : 'success'}}">{{$item->block == 'Y' ? 'Terblokir' : 'Aktif'}}</span>
+                                        <span><em class="icon ni ni-shield-star"></em> {{ $item->address }}</span>
                                     </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
-                                        @canany(['update-users','delete-users'])
+                                        @canany(['update-farmer-groups','delete-farmer-groups'])
                                             <ul class="nk-tb-actions gx-1">
                                                 <li>
                                                     <div class="drodown">
                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <ul class="link-list-opt no-bdr">
-                                                                @can('update-users')
-                                                                    <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/edit" class="ajaxAction"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li> 
+                                                                @can('update-farmer-groups')
+                                                                    <li><a href="/administrator/farmer-groups/{{ Hashids::encode($item->id) }}/edit" class="ajaxAction"><em class="icon ni ni-edit"></em><span>Edit Kelompok Tani</span></a></li> 
                                                                 @endcan
-                                                                @can('delete-users')
-                                                                    <li><a class="deleteItem" href="/administrator/users/{{ Hashids::encode($item->id) }}/delete"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
-                                                                @endcan
-                                                                    <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/detail" class="ajaxAction"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
-                                                                @can('update-users')     
-                                                                    <li class="divider"></li>
-                                                                    <li><a href="#" class="block-user" data-id="{{ Hashids::encode($item->id) }}"><em class="{{ $item->block == 'N' ? 'icon ni ni-na' : 'icon ni ni-unlock' }}"></em><span>{{ $item->block == 'N' ? 'Block User' : 'Unblock User' }}</span></a></li>
+                                                                @can('delete-farmer-groups')
+                                                                    <li><a class="deleteItem" href="/administrator/farmer-groups/{{ Hashids::encode($item->id) }}/delete"><em class="icon ni ni-trash"></em><span>Delete Kelompok Tani</span></a></li>
                                                                 @endcan
                                                             </ul>
                                                         </div>
@@ -132,7 +116,6 @@
                                         @endcanany
                                     </td>
                                 </tr><!-- .nk-tb-item -->
-                            @endif
                             @endforeach
                         </tbody>
                     </table><!-- .nk-tb-list -->

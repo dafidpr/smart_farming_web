@@ -51,14 +51,9 @@
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li><a class="ajaxAction" href="/administrator/users/{{ Hashids::encode(getInfoLogin()->id) }}/detail"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                    @if (getInfoLogin()->roles[0]->name == 'Developer')
-                                        @can('update-users')
-                                        <li><a class="ajaxAction" href="/administrator/users/{{ Hashids::encode(getInfoLogin()->id) }}/edit"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                        @endcan
-                                    @else
-                                        <li><a class="ajaxAction" href="/administrator/lecturers/{{ Hashids::encode(getInfoLogin()->lecturer->id) }}/edit"><em class="icon ni ni-edit-alt"></em><span>Update Profile</span></a></li>
-                                    @endif
-                                   
+                                    @can('update-users')
+                                    <li><a class="ajaxAction" href="/administrator/users/{{ Hashids::encode(getInfoLogin()->id) }}/edit"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                    @endcan
                                     <li><a class="ajaxAction" href="/administrator/users/change_password"><em class="icon ni ni-shield-star"></em><span>Ubah Password</span></a></li>
                                 </ul>
                             </div>

@@ -43,11 +43,6 @@
 <script src="{{ asset('admin/assets/assets/js/libs/jqvmap.js?ver=2.2.0') }}"></script>
 <script src="{{ asset('admin/assets/assets/js/example-sweetalert.js?ver=2.2.0') }}"></script>
 
-<!-- Start datatable js -->
-{{-- <script src="{{ asset('admin/assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin/assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin/assets/vendor/datatables/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('admin/assets/vendor/datatables/responsive.bootstrap4.min.js') }}"></script> --}}
 @if(isset($mod))
 <!--Script Custom-->
 <script src="{{ asset('admin/mod/' . $mod . '.js') }}"></script>

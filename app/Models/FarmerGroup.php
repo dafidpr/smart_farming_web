@@ -10,6 +10,8 @@ class FarmerGroup extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'chairman', 'year_formed', 'address', 'number_of_members', 'latitude', 'longitude'];
+
     public function user()
     {
         return $this->hasOne(User::class);

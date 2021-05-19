@@ -25,7 +25,7 @@ class RoleController extends Controller
             'mod'   => 'mod_role',
             'roles' => Role::where('name', '!=', 'Developer')->get()
         ];
-        return view('admin.'. $this->defaultLayout, $data);
+        return view('admin.' . $this->defaultLayout, $data);
     }
 
     /**
@@ -125,7 +125,7 @@ class RoleController extends Controller
             'action' => '/administrator/roles/' . $id . '/change-permission'
         ];
 
-        return view('admin.'. $this->defaultLayout('role.change'), $data);
+        return view('admin.' . $this->defaultLayout('role.change'), $data);
     }
 
     /**
@@ -175,7 +175,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $ids = Hashids::decode($id);
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             try {
                 $role = Role::findOrFail($ids[0]);
                 $role->delete();
@@ -183,7 +183,7 @@ class RoleController extends Controller
                 return response()->json([
                     'msg' => 'Data berhasil dihapus'
                 ]);
-            } catch(Exception $e){
+            } catch (QueryException $e) {
                 if ($e->getCode() === '23000') {
                     return response()->json(['msg' => 'Gagal menghapus karena data ini masih di gunakan oleh data lain'], 500);
                 } else {
@@ -197,12 +197,12 @@ class RoleController extends Controller
 
     public function multipleDelete(Request $request)
     {
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             try {
                 Role::whereIn('id', $request->id)->delete();
-    
+
                 return response()->json(['msg' => 'Data berhasil dihapus'], 200);
-            } catch(Exception $e){
+            } catch (QueryException $e) {
                 if ($e->getCode() === '23000') {
                     return response()->json(['msg' => 'Gagal menghapus karena data ini masih di gunakan oleh data lain'], 500);
                 } else {

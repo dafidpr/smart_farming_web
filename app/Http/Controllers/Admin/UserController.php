@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use Exception;
 use Vinkla\Hashids\Facades\Hashids;
 use File;
 use Illuminate\Validation\Rule;
@@ -239,6 +240,22 @@ class UserController extends Controller
 
                 return response()->json(['msg' => 'Data berhasil dihapus'], 200);
             } catch (Exception $e) {
+                return response()->json(['msg' => $e->getMessage()], 500);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function multipleDelete(Request $request)
+    {
+        if (\Request::ajax()) {
+            try {
+                User::whereIn('id', $request->id)->delete();
+
+                return response()->json(['msg' => 'Data berhasil dihapus'], 200);
+            } catch (Exception $e) {
+
                 return response()->json(['msg' => $e->getMessage()], 500);
             }
         } else {

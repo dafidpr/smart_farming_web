@@ -17,3 +17,4 @@
 <script src="{{ asset('admin/mod/' . $mod . '.js') }}"></script>
 @endif
 <script src="{{ asset('admin/mod/mod_main.js') }}"></script>
+
