@@ -36,6 +36,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'create-farmers', 'guard_name' => 'web', 'is_default' => 'Y'],
             ['name' => 'update-farmers', 'guard_name' => 'web', 'is_default' => 'Y'],
             ['name' => 'delete-farmers', 'guard_name' => 'web', 'is_default' => 'Y'],
+            ['name' => 'read-mappings', 'guard_name' => 'web', 'is_default' => 'Y'],
             ['name' => 'read-settings', 'guard_name' => 'web', 'is_default' => 'Y'],
             ['name' => 'update-settings', 'guard_name' => 'web', 'is_default' => 'Y'],
         ]);

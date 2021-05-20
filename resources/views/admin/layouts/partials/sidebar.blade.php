@@ -28,7 +28,7 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                         @endcan
-                        @canany(['read-users','read-roles','read-farmers', 'farmer-groups'])
+                        @canany(['read-users','read-roles','read-farmers', 'read-farmer-groups', 'read-mappings'])
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Applications</h6>
                             </li><!-- .nk-menu-heading -->
@@ -65,6 +65,14 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                         @endcan
+                        @can('read-mappings')
+                        <li class="nk-menu-item">
+                            <a href="/administrator/mappings" class="ajaxAction nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-map-pin"></em></span>
+                                <span class="nk-menu-text">Pemteaan Lokasi</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                    @endcan
                         @canany(['read-settings'])
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Settings</h6>

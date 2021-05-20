@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FarmerGroupController;
 
@@ -74,10 +75,14 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
 
     // Farmers
     Route::prefix('farmers')->group(function () {
-        Route::get('', [FarmerGroupController::class, 'index'])->middleware('can:read-farmers');
-        Route::post('store', [FarmerGroupController::class, 'store'])->middleware('can:create-farmers');
-        Route::delete('{id}/delete', [FarmerGroupController::class, 'destroy'])->middleware('can:delete-farmers')->name('farmers.destroy');
-        Route::delete('multipleDelete', [FarmerGroupController::class, 'multipleDelete'])->middleware('can:delete-farmers')->name('farmers.bulk-destroy');
+        Route::get('', [FarmerController::class, 'index'])->middleware('can:read-farmers');
+        Route::post('store', [FarmerController::class, 'store'])->middleware('can:create-farmers');
+        Route::get('{id}/edit', [FarmerController::class, 'edit'])->middleware('can:update-farmers');
+        Route::post('{id}/update', [FarmerController::class, 'update'])->middleware('can:update-farmers');
+        Route::delete('{id}/delete', [FarmerController::class, 'destroy'])->middleware('can:delete-farmers')->name('farmers.destroy');
+        Route::delete('multipleDelete', [FarmerController::class, 'multipleDelete'])->middleware('can:delete-farmers')->name('farmers.bulk-destroy');
+        Route::post('{id}/block', [FarmerController::class, 'blockFarmer'])->middleware('can:update-farmers');
+        Route::post('{id}/status', [FarmerController::class, 'statusFarmer'])->middleware('can:update-farmers');
     });
 
     // Settings

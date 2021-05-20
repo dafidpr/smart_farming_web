@@ -22,12 +22,13 @@ class CreateFarmersTable extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->string('phone', 12);
             $table->string('email');
-            $table->string('birthplace');
-            $table->date('birthday');
+            $table->string('birthplace')->nullable();
+            $table->date('birthday')->nullable();
             $table->float('land_area');
-            $table->string('tool_access_code');
+            $table->string('serial_number');
             $table->enum('block', ['Y', 'N']);
             $table->enum('status', ['pending', 'approve', 'rejected']);
+            $table->rememberToken();
             $table->timestamps();
             $table->foreign('farmer_group_id')->references('id')->on('farmer_groups')->onDelete('restrict')->onUpdate('cascade');
         });
