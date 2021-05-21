@@ -95,12 +95,6 @@ class AuthController extends Controller
                         'status' => 'pending',
                     ]);
 
-                    $farmerGroup = FarmerGroup::find($request->farmer_group_id);
-                    FarmerGroup::where('id', $request->farmer_group_id)->update([
-                        'number_of_members' => $farmerGroup->number_of_members + 1
-                    ]);
-
-
                     return response()->json([
                         'messages'  => ' Petani baru berhasil ditambahkan',
                     ], 200);
@@ -122,5 +116,51 @@ class AuthController extends Controller
         return response()->json([
             'messages'  => 'Berhasil logout',
         ], 200);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $farmer = $request->user();
+        if ($request->expectsJson()) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'current_password' => ['required', function ($attribute, $value, $fail) use ($farmer) {
+                        if (!\Hash::check($value, $farmer->password)) {
+                            return $fail(__('The current password is incorrect.'));
+                        }
+                    }],
+                    'new_password' => 'required|same:confirm_password',
+                    'confirm_password' => 'required|same:new_password',
+                ],
+                [
+                    'current_password.required' => 'Current password cannot be empty',
+                    'new_password.same'    => 'Password is not the same as confirmation password.',
+                    'new_password.required' => 'New password cannot be empty',
+                    'confirm_password.same' => 'Confirm password is not the same as new password',
+                    'confirm_password.required' => 'Confirm password cannot be empty'
+                ]
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+                try {
+                    Farmer::where('id', $farmer->id)->update(['password' => Hash::make($request->new_password)]);
+                    return response()->json([
+                        'messages'  => 'Password berhasil diubah',
+
+                    ], 200);
+                } catch (Exeption $e) {
+                    return response()->json([
+                        'messages' => 'Opps! Terjadi kesalahan'
+                    ], 409);
+                }
+            }
+        } else {
+            abort(403);
+        }
     }
 }

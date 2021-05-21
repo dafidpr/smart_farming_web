@@ -18,7 +18,6 @@ class CreateFarmerGroupsTable extends Migration
             $table->string('name');
             $table->string('chairman');
             $table->year('year_formed');
-            $table->integer('number_of_members');
             $table->string('address');
             $table->string('latitude');
             $table->string('longitude');

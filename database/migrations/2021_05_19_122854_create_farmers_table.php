@@ -20,7 +20,7 @@ class CreateFarmersTable extends Migration
             $table->string('password');
             $table->string('name');
             $table->enum('gender', ['male', 'female']);
-            $table->string('phone', 12);
+            $table->string('phone', 15);
             $table->string('email');
             $table->string('birthplace')->nullable();
             $table->date('birthday')->nullable();

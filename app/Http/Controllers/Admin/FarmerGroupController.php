@@ -7,6 +7,7 @@ use App\Models\FarmerGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Vinkla\Hashids\Facades\Hashids;
+use App\Models\Farmer;
 use Illuminate\Database\QueryException;
 
 class FarmerGroupController extends Controller
@@ -21,7 +22,8 @@ class FarmerGroupController extends Controller
         $data = [
             'title' => 'Kelompok Tani',
             'mod'   => 'mod_farmer_group',
-            'farmerGroups' => FarmerGroup::all()
+            'farmerGroups' => FarmerGroup::all(),
+            'count' => Farmer::selectRaw('count(id) as number_of_members, farmer_group_id')->groupBy('farmer_group_id')->get()
         ];
         return view('admin.' . $this->defaultLayout('farmer_group.index'), $data);
     }
@@ -70,7 +72,6 @@ class FarmerGroupController extends Controller
                         'name'      => $request->name,
                         'chairman'  => $request->chairman,
                         'year_formed'     => $request->year,
-                        'number_of_members' => 0,
                         'address'     => $request->address,
                         'latitude'     => $request->latitude,
                         'longitude'     => $request->longitude,
@@ -112,7 +113,7 @@ class FarmerGroupController extends Controller
     {
         $ids = Hashids::decode($id);
         $data = [
-            'title' => 'Edit Kelompok Tani Baru',
+            'title' => 'Edit Kelompok Tani',
             'mod'   => 'mod_farmer_group',
             'farmerGroup' => FarmerGroup::find($ids[0]),
             'action' => '/administrator/farmer-groups/' . $id . '/update'
@@ -151,7 +152,6 @@ class FarmerGroupController extends Controller
                         'name'      => $request->name,
                         'chairman'  => $request->chairman,
                         'year_formed'     => $request->year,
-                        'number_of_members' => 0,
                         'address'     => $request->address,
                         'latitude'     => $request->latitude,
                         'longitude'     => $request->longitude,

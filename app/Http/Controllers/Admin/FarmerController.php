@@ -20,12 +20,13 @@ class FarmerController extends Controller
      */
     public function index()
     {
+        $farmerGroupID = getInfoLogin()->farmer_group_id;
         $data = [
             'title' => 'Data Petani',
             'mod'   => 'mod_farmer',
-            'farmers' => Farmer::where('status', 'approve')->get(),
-            'farmerPending' => Farmer::where('status', 'pending')->get(),
-            'farmerReject' => Farmer::where('status', 'rejected')->get()
+            'farmers' => getInfoLogin()->roles[0]->name == 'Developer' ? Farmer::where('status', 'approve')->get() : Farmer::where(['status' => 'approve', 'farmer_group_id' => $farmerGroupID])->get(),
+            'farmerPending' => getInfoLogin()->roles[0]->name == 'Developer' ? Farmer::where('status', 'pending')->get() : Farmer::where(['status' => 'pending', 'farmer_group_id' => $farmerGroupID])->get(),
+            'farmerReject' => getInfoLogin()->roles[0]->name == 'Developer' ? Farmer::where('status', 'rejected')->get() : Farmer::where(['status' => 'rejected', 'farmer_group_id' => $farmerGroupID])->get()
         ];
         return view('admin.' . $this->defaultLayout('farmer.index'), $data);
     }
@@ -37,11 +38,12 @@ class FarmerController extends Controller
      */
     public function create()
     {
+        $farmerGroupID = getInfoLogin()->farmer_group_id;
         $data = [
             'title' => 'Tambah Petani Baru',
             'mod'   => 'mod_farmer',
             'action' => '/administrator/farmers/store',
-            'farmerGroups' => FarmerGroup::all()
+            'farmerGroups' => getInfoLogin()->roles[0]->name == 'Developer' ? FarmerGroup::all() : FarmerGroup::where('id', $farmerGroupID)->get()
         ];
         return view('admin.' . $this->defaultLayout('farmer.form'), $data);
     }
@@ -91,11 +93,6 @@ class FarmerController extends Controller
                         'status' => 'approve',
                     ]);
 
-                    $farmerGroup = FarmerGroup::find($request->farmer_group_id);
-                    FarmerGroup::where('id', $request->farmer_group_id)->update([
-                        'number_of_members' => $farmerGroup->number_of_members + 1
-                    ]);
-
                     return response()->json([
                         'messages'  => 'Petani baru berhasil ditambahkan',
                         'redirect'  => '/administrator/farmers'
@@ -130,11 +127,12 @@ class FarmerController extends Controller
      */
     public function edit($id)
     {
+        $farmerGroupID = getInfoLogin()->farmer_group_id;
         $ids = Hashids::decode($id);
         $data = [
             'title' => 'Edit Petani',
             'mod'   => 'mod_farmer',
-            'farmerGroups' => FarmerGroup::all(),
+            'farmerGroups' =>  getInfoLogin()->roles[0]->name == 'Developer' ? FarmerGroup::all() : FarmerGroup::where('id', $farmerGroupID)->get(),
             'farmer' => Farmer::find($ids[0]),
             'action' => '/administrator/farmers/' . $id . '/update'
         ];

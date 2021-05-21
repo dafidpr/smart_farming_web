@@ -79,7 +79,9 @@
                                                 <div class="user-info">
                                                     <span class="tb-lead">{{ $item->name }}</span>
                                                     <ul class="list-status">
-                                                        <li><em class="icon ni ni-alert-circle"></em> <span>Jumlah Anggota : {{ $item->number_of_members }}</span></li>
+                                                       
+                                                        <li><em class="icon ni ni-alert-circle"></em> <span>Jumlah Anggota : {{ '0'  }}</span></li>
+                                                        
                                                     </ul>
                                                 </div>
                                             </div>
