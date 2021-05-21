@@ -139,7 +139,7 @@
                                                                                     @can('delete-farmers')
                                                                                         <li><a class="deleteItem" href="/administrator/farmers/{{ Hashids::encode($item->id) }}/delete"><em class="icon ni ni-trash"></em><span>Delete  Petani</span></a></li>
                                                                                     @endcan
-                                                                                    @can('update-users')     
+                                                                                    @can('update-farmers')     
                                                                                         <li class="divider"></li>
                                                                                         <li><a href="#" class="block-farmer" data-id="{{ Hashids::encode($item->id) }}"><em class="{{ $item->block == 'N' ? 'icon ni ni-na' : 'icon ni ni-unlock' }}"></em><span>{{ $item->block == 'N' ? 'Block Petani' : 'Unblock Petani' }}</span></a></li>
                                                                                     @endcan
