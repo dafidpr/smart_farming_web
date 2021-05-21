@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\FarmerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/farmer/getFarmer', [FarmerController::class, 'getFarmer']);
+    Route::patch('/farmer/{id}/update', [FarmerController::class, 'update']);
 });
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::post('/register', [AuthController::class, 'registerFarmer']);
