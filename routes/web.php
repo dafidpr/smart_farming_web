@@ -73,6 +73,12 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
         Route::delete('multipleDelete', [FarmerGroupController::class, 'multipleDelete'])->middleware('can:delete-farmer-groups')->name('farmer-group.bulk-destroy');
     });
 
+    // Mappings
+    Route::prefix('mappings')->group(function () {
+        Route::get('', [FarmerGroupController::class, 'mapping'])->middleware('can:read-mappings');
+        Route::get('getDataMap', [FarmerGroupController::class, 'getDataMap']);
+    });
+
     // Farmers
     Route::prefix('farmers')->group(function () {
         Route::get('', [FarmerController::class, 'index'])->middleware('can:read-farmers');

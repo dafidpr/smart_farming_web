@@ -219,4 +219,30 @@ class FarmerGroupController extends Controller
             abort(403);
         }
     }
+
+    public function mapping()
+    {
+        $data = [
+            'title' => 'Pemetaan Lokasi Kelompok Tani',
+            'mod'   => 'mod_farmer_group',
+        ];
+        return view('admin.' . $this->defaultLayout('farmer_group.mapping'), $data);
+    }
+
+    public function getDataMap()
+    {
+        if (\Request::ajax()) {
+            try {
+                return response()->json([
+                    'response'  => FarmerGroup::all(),
+                ], 200);
+            } catch (Exeption $e) {
+                return response()->json([
+                    'messages' => 'Opps! Terjadi kesalahan'
+                ], 409);
+            }
+        } else {
+            abort(403);
+        }
+    }
 }

@@ -120,13 +120,12 @@
     }).setLngLat([setLong, setLat]).addTo(map);
     
     function onDragEnd(){
-        
         var lngLat = marker.getLngLat();
         lat.value = lngLat.lat;
         long.value = lngLat.lng;
     }
-
     marker.on('dragend', onDragEnd);
+    
 </script>
 
 @endsection
