@@ -12,7 +12,8 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         $data = [
             'title' => 'Sign In',
@@ -23,13 +24,13 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
 
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             $validator = Validator::make($request->All(), [
                 'username' => 'required',
                 'password' => 'required',
             ]);
 
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return response()->json([
                     'messages' => $validator->messages()
                 ], 400);
@@ -39,7 +40,7 @@ class AuthController extends Controller
 
                     $user = User::where('username', $request->post('username'))->first();
                     if (Auth::guard('web')->attempt($request->only(['username', 'password']))) {
-                        if($user->block == 'Y'){
+                        if ($user->block == 'Y') {
                             return response()->json([
                                 'messages' => 'Akun anda telah diblokir'
                             ], 403);
@@ -53,9 +54,9 @@ class AuthController extends Controller
                             ]);
                             $user->last_login = Carbon::now();
                             $user->save();
-    
+
                             return response()->json([
-                                'redirect' => '/administrator/dashboard'
+                                'redirect' => getInfoLogin()->roles[0]->name == 'Developer' ? '/administrator/dashboard' : '/administrator/farmers'
                             ], 200);
                         }
                     } else {
@@ -63,8 +64,7 @@ class AuthController extends Controller
                             'messages' => 'Username atau password salah'
                         ], 404);
                     }
-    
-                } catch (Exeption $e){
+                } catch (Exeption $e) {
                     return response()->json([
                         'messages' => 'Opps! Terjadi kesalahan.'
                     ], 409);
@@ -80,5 +80,4 @@ class AuthController extends Controller
         $request->session()->remove('user');
         return redirect(config('redirects.redirectIfUnAuth'));
     }
-
 }

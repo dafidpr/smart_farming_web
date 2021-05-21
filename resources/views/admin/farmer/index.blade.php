@@ -80,7 +80,7 @@
                                                             <label class="custom-control-label" for="uid"></label>
                                                         </div>
                                                     </th> --}}
-                                                    <th class="nk-tb-col"><span class="sub-text">Nama Kelompok Tani</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Nama Petani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Kelompok Tani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Nomor Telp</span></th>
                                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Email</span></th>
