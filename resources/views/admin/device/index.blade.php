@@ -57,7 +57,7 @@
                                         <label class="custom-control-label" for="uid"></label>
                                     </div>
                                 </th>
-                                <th class="nk-tb-col"><span class="sub-text">Nama Role</span></th>
+                                <th class="nk-tb-col"><span class="sub-text">Nama Perangkat</span></th>
                                 <th class="nk-tb-col tb-col-mb"><span class="sub-text">Serial Number</span></th>
                                 <th class="nk-tb-col tb-col-mb"><span class="sub-text">Status</span></th>
                                 <th class="nk-tb-col nk-tb-col-tools text-right"></th>

@@ -176,17 +176,7 @@ class FarmerController extends Controller
                     'phone' => 'required',
                     'email' => 'required',
                     'land_area' => 'required|numeric',
-                    'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
-                        if (isset($device->is_used)) {
-                            if ($device->is_used == 'Y') {
-
-                                return $fail(__('Serial number has been used'));
-                            }
-                        }
-                    }]
-                ],
-                [
-                    'serial_number.exists' => 'Serial number not found'
+                    'serial_number' => 'required'
                 ]
             );
 
