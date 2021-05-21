@@ -25,6 +25,7 @@ class CreateFarmersTable extends Migration
             $table->string('birthplace')->nullable();
             $table->date('birthday')->nullable();
             $table->float('land_area');
+            $table->string('address')->nullable();
             $table->string('serial_number');
             $table->enum('block', ['Y', 'N']);
             $table->enum('status', ['pending', 'approve', 'rejected']);

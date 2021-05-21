@@ -16,4 +16,8 @@ class FarmerGroup extends Model
     {
         return $this->hasOne(User::class);
     }
+    public function farmer()
+    {
+        return $this->hasMany(Farmer::class);
+    }
 }

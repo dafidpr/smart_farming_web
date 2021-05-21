@@ -36,6 +36,7 @@ class FarmerController extends Controller
                 'phone' => 'required',
                 'email' => 'required',
                 'land_area' => 'required|numeric',
+                'address' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -53,6 +54,7 @@ class FarmerController extends Controller
                         'birthplace' => $request->birthplace,
                         'birthday' => $request->birthday,
                         'land_area' => $request->land_area,
+                        'address' => $request->address,
                     ]);
 
                     return response()->json([

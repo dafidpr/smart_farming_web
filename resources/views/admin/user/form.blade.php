@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="default-01">Username <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" value="{{ isset($user->username) ? $user->username : '' }}">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" {{ isset($user->username) ? 'readonly' : '' }} value="{{ isset($user->username) ? $user->username : '' }}">
                                         <i class="text-danger small d-none" id="usernameErr"></i>
                                     </div>
                                 </div>

@@ -12,9 +12,14 @@ class Farmer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['farmer_group_id', 'username', 'password', 'name', 'gender', 'phone', 'email', 'birthplace', 'birthday', 'land_area', 'serial_number', 'block', 'status'];
+    protected $fillable = ['farmer_group_id', 'username', 'password', 'name', 'gender', 'phone', 'email', 'birthplace', 'birthday', 'land_area', 'address', 'serial_number', 'block', 'status'];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function farmerGroup()
+    {
+        return $this->belongsTo(FarmerGroup::class);
+    }
 }

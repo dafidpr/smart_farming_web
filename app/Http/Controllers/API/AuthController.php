@@ -68,6 +68,7 @@ class AuthController extends Controller
                 'email' => 'required',
                 'land_area' => 'required|numeric',
                 'serial_number' => 'required|unique:farmers,serial_number',
+                'address' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -88,6 +89,7 @@ class AuthController extends Controller
                         'birthplace' => $request->birthplace,
                         'birthday' => $request->birthday,
                         'land_area' => $request->land_area,
+                        'address' => $request->address,
                         'serial_number' => $request->serial_number,
                         'block' => 'N',
                         'status' => 'pending',
