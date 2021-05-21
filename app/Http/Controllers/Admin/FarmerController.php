@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Hash;
 use App\Models\FarmerGroup;
+use App\Models\Device;
 
 class FarmerController extends Controller
 {
@@ -57,17 +58,31 @@ class FarmerController extends Controller
     public function store(Request $request)
     {
         if (\Request::ajax()) {
-            $validator = Validator::make($request->all(), [
-                'farmer_group_id' => 'required',
-                'username'  => 'required|unique:farmers,username',
-                'password' => 'required',
-                'name'  => 'required',
-                'gender' => 'required',
-                'phone' => 'required',
-                'email' => 'required',
-                'land_area' => 'required|numeric',
-                'serial_number' => 'required|unique:farmers,serial_number',
-            ]);
+            $device = Device::where('serial_number', $request->serial_number)->first();
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'farmer_group_id' => 'required',
+                    'username'  => 'required|unique:farmers,username',
+                    'password' => 'required',
+                    'name'  => 'required',
+                    'gender' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required',
+                    'land_area' => 'required|numeric',
+                    'serial_number' =>  ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
+                        if (isset($device->is_used)) {
+                            if ($device->is_used == 'Y') {
+
+                                return $fail(__('Serial number has been used'));
+                            }
+                        }
+                    }]
+                ],
+                [
+                    'serial_number.exists' => 'Serial number not found'
+                ]
+            );
 
             if ($validator->fails()) {
                 return response()->json([
@@ -150,16 +165,30 @@ class FarmerController extends Controller
     {
         $ids = Hashids::decode($id);
         if (\Request::ajax()) {
-            $validator = Validator::make($request->all(), [
-                'farmer_group_id' => 'required',
-                'username'  => 'required',
-                'name'  => 'required',
-                'gender' => 'required',
-                'phone' => 'required',
-                'email' => 'required',
-                'land_area' => 'required|numeric',
-                'serial_number' => 'required',
-            ]);
+            $device = Device::where('serial_number', $request->serial_number)->first();
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'farmer_group_id' => 'required',
+                    'username'  => 'required',
+                    'name'  => 'required',
+                    'gender' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required',
+                    'land_area' => 'required|numeric',
+                    'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
+                        if (isset($device->is_used)) {
+                            if ($device->is_used == 'Y') {
+
+                                return $fail(__('Serial number has been used'));
+                            }
+                        }
+                    }]
+                ],
+                [
+                    'serial_number.exists' => 'Serial number not found'
+                ]
+            );
 
             if ($validator->fails()) {
                 return response()->json([
@@ -246,6 +275,8 @@ class FarmerController extends Controller
         if (\Request::ajax()) {
             try {
                 $farmer = Farmer::where('id', $ids[0])->update(['status' => 'approve']);
+                $serialNumberFarmer = Farmer::find($ids[0]);
+                Device::where('serial_number', $serialNumberFarmer->serial_number)->update(['is_used' => 'Y']);
 
                 return response()->json([
                     'messages' => 'Data berhasil di approve'

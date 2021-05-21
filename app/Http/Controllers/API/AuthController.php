@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Device;
 use Illuminate\Http\Request;
 use App\Models\Farmer;
 use App\Models\FarmerGroup;
@@ -58,18 +59,32 @@ class AuthController extends Controller
     public function registerFarmer(Request $request)
     {
         if ($request->expectsJson()) {
-            $validator = Validator::make($request->all(), [
-                'farmer_group_id' => 'required',
-                'username'  => 'required|unique:farmers,username',
-                'password' => 'required',
-                'name'  => 'required',
-                'gender' => 'required',
-                'phone' => 'required',
-                'email' => 'required',
-                'land_area' => 'required|numeric',
-                'serial_number' => 'required|unique:farmers,serial_number',
-                'address' => 'required'
-            ]);
+            $device = Device::where('serial_number', $request->serial_number)->first();
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'farmer_group_id' => 'required',
+                    'username'  => 'required|unique:farmers,username',
+                    'password' => 'required',
+                    'name'  => 'required',
+                    'gender' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required',
+                    'land_area' => 'required|numeric',
+                    'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
+                        if (isset($device->is_used)) {
+                            if ($device->is_used == 'Y') {
+
+                                return $fail(__('Serial number sudah pernah digunakan.'));
+                            }
+                        }
+                    }],
+                    'address' => 'required'
+                ],
+                [
+                    'serial_number.exists' => 'Serial number tidak ditemukan'
+                ]
+            );
 
             if ($validator->fails()) {
                 return response()->json([

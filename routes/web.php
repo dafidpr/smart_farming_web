@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FarmerGroupController;
@@ -56,10 +57,20 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
         Route::post('store', [RoleController::class, 'store'])->middleware('can:create-roles');
         Route::post('{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
         Route::get('{id}/show', [RoleController::class, 'show'])->middleware('can:update-roles');
-        Route::post('{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
         Route::delete('{id}/delete', [RoleController::class, 'destroy'])->middleware('can:delete-roles');
         Route::delete('multipleDelete', [RoleController::class, 'multipleDelete'])->middleware('can:delete-roles');
         Route::post('{id}/change-permission', [RoleController::class, 'changePermission'])->middleware('can:update-roles');
+    });
+
+    // Device
+    Route::prefix('devices')->group(function () {
+        Route::get('', [DeviceController::class, 'index'])->middleware('can:read-devices');
+        Route::post('store', [DeviceController::class, 'store'])->middleware('can:create-devices');
+        Route::post('{id}/update', [DeviceController::class, 'update'])->middleware('can:update-devices');
+        Route::get('{id}/show', [DeviceController::class, 'show'])->middleware('can:update-devices');
+        Route::post('{id}/update', [DeviceController::class, 'update'])->middleware('can:update-devices');
+        Route::delete('{id}/delete', [DeviceController::class, 'destroy'])->middleware('can:delete-devices');
+        Route::delete('multipleDelete', [DeviceController::class, 'multipleDelete'])->middleware('can:delete-devices');
     });
 
     // Farmer Groups

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use App\Models\Device;
 
 class DashboardController extends Controller
 {
@@ -17,7 +18,9 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Analytics Dashboard',
             'users' =>  User::all(),
-            'farmerGroups' => FarmerGroup::all(),
+            'devices' => Device::all(),
+            'deviceUsed' => Device::where('is_used', 'Y')->get(),
+            'deviceNoUsed' => Device::where('is_used', 'N')->get(),
             'userBlock' => User::where('block', 'Y')->get(),
             'userUnblock' => User::where('block', 'N')->get(),
             'farmers' => Farmer::where(['status' => 'approve', 'block' => 'N'])->get(),

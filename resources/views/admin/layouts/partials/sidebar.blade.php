@@ -65,14 +65,22 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                         @endcan
+                        @can('read-devices')
+                            <li class="nk-menu-item">
+                                <a href="/administrator/devices" class="ajaxAction nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-monitor"></em></span>
+                                    <span class="nk-menu-text">Perangkat</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
                         @can('read-mappings')
-                        <li class="nk-menu-item">
-                            <a href="/administrator/mappings" class="ajaxAction nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-map-pin"></em></span>
-                                <span class="nk-menu-text">Pemteaan Lokasi</span>
-                            </a>
-                        </li><!-- .nk-menu-item -->
-                    @endcan
+                            <li class="nk-menu-item">
+                                <a href="/administrator/mappings" class="ajaxAction nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-map-pin"></em></span>
+                                    <span class="nk-menu-text">Pemteaan Lokasi</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
                         @canany(['read-settings'])
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Settings</h6>

@@ -13,7 +13,7 @@ $('.add-role').click(function() {
 
 $('.edit').click(function() {
     let id = $(this).data('id');
-    $('.title').text('Edit Role Baru');
+    $('.title').text('Edit Role');
     $('#myModal form').attr('action', '/administrator/roles/'+ id +'/update');
     $.ajax({
         url: url + '/administrator/roles/'+ id +'/show',

@@ -48,21 +48,25 @@
                     <div class="card-inner">
                         <div class="card-title-group align-start mb-0">
                             <div class="card-title">
-                                <h6 class="subtitle">Total Kelompok Tani</h6>
+                                <h6 class="subtitle">Total Perangkat</h6>
                             </div>
                             <div class="card-tools">
-                                <em class="card-hint icon ni ni-home-alt" data-toggle="tooltip" data-placement="left" title="Total Withdraw"></em>
+                                <em class="card-hint icon ni ni-monitor" data-toggle="tooltip" data-placement="left" title="Total Withdraw"></em>
                             </div>
                         </div>
                         <div class="card-amount">
-                            <span class="amount">{{ $farmerGroups->count() }}</span>
+                            <span class="amount">{{ $devices->count() }}</span>
                             
                         </div>
                         <div class="invest-data">
                             <div class="invest-data-amount g-2">
                                 <div class="invest-data-history">
-                                    <div class="title">Keterangan</div>
-                                    <div class="amount">Mitra Kelompok Tani</div>
+                                    <div class="title">SN Aktif</div>
+                                    <div class="amount">{{ $deviceUsed->count() }}</div>
+                                </div>
+                                <div class="invest-data-history">
+                                    <div class="title">SN Digunakan</div>
+                                    <div class="amount">{{ $deviceNoUsed->count() }}</div>
                                 </div>
                             </div>
                         </div>
@@ -172,11 +176,11 @@
                         <div class="card-inner">
                             <div class="nk-wg-action">
                                 <div class="nk-wg-action-content">
-                                    <em class="icon ni ni-home-fill"></em>
-                                    <div class="title">Kelompok Tani</div>
-                                    <p>Lihat semua data kelompok tani. </p>
+                                    <em class="icon ni ni-monitor"></em>
+                                    <div class="title">Perangkat</div>
+                                    <p>Lihat semua data perangkat. </p>
                                 </div>
-                                <a href="/administrator/farmer-groups" class="btn btn-icon btn-trigger mr-n2"><em class="icon ni ni-forward-ios"></em></a>
+                                <a href="/administrator/devices" class="btn btn-icon btn-trigger mr-n2 ajaxAction"><em class="icon ni ni-forward-ios"></em></a>
                             </div>
                         </div><!-- .card-inner -->
                         <div class="card-inner">

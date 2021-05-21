@@ -78,11 +78,6 @@
                                             <div class="user-card">
                                                 <div class="user-info">
                                                     <span class="tb-lead">{{ $item->name }}</span>
-                                                    <ul class="list-status">
-                                                       
-                                                        <li><em class="icon ni ni-alert-circle"></em> <span>Jumlah Anggota : {{ '0'  }}</span></li>
-                                                        
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
