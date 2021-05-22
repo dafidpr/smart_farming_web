@@ -62,11 +62,11 @@
                             <div class="invest-data-amount g-2">
                                 <div class="invest-data-history">
                                     <div class="title">SN Aktif</div>
-                                    <div class="amount">{{ $deviceUsed->count() }}</div>
+                                    <div class="amount">{{ $deviceNoUsed->count() }}</div>
                                 </div>
                                 <div class="invest-data-history">
                                     <div class="title">SN Digunakan</div>
-                                    <div class="amount">{{ $deviceNoUsed->count() }}</div>
+                                    <div class="amount">{{ $deviceUsed->count() }}</div>
                                 </div>
                             </div>
                         </div>
