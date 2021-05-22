@@ -108,6 +108,8 @@ class FarmerController extends Controller
                         'block' => $request->block,
                         'status' => 'approve',
                     ]);
+                    Control::create(['serial_number' => $request->serial_number, 'status' => 0]);
+                    Device::where('serial_number', $request->serial_number)->update(['is_used' => 'Y']);
 
                     return response()->json([
                         'messages'  => 'Petani baru berhasil ditambahkan',
@@ -177,7 +179,17 @@ class FarmerController extends Controller
                     'phone' => 'required',
                     'email' => 'required',
                     'land_area' => 'required|numeric',
-                    'serial_number' => 'required'
+                    'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
+                        if (isset($device->is_used)) {
+                            if ($device->is_used == 'Y') {
+
+                                return $fail(__('Serial number has been used'));
+                            }
+                        }
+                    }]
+                ],
+                [
+                    'serial_number.exists' => 'Serial number not found'
                 ]
             );
 
@@ -187,7 +199,7 @@ class FarmerController extends Controller
                 ], 400);
             } else {
                 try {
-
+                    $serialNumberFarmer = Farmer::find($ids[0]);
                     Farmer::where('id', $ids[0])->update([
                         'farmer_group_id' => $request->farmer_group_id,
                         'username'  => $request->username,
@@ -202,6 +214,9 @@ class FarmerController extends Controller
                         'serial_number' => $request->serial_number,
                         'block' => $request->block,
                     ]);
+                    Control::where('serial_number', $serialNumberFarmer->serial_number)->update(['serial_number' => $request->serial_number]);
+                    Device::where('serial_number', $request->serial_number)->update(['is_used' => 'Y']);
+                    Device::where('serial_number', $serialNumberFarmer->serial_number)->update(['is_used' => 'N']);
 
                     return response()->json([
                         'messages'  => 'Petani baru berhasil diubah',
