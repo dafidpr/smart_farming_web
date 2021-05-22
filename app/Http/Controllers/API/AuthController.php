@@ -25,16 +25,19 @@ class AuthController extends Controller
                 if (!$farmer || !Hash::check($request->password, $farmer->password)) {
 
                     return response()->json([
-                        'messages' => 'Username atau password salah'
+                        'messages' => 'Username atau password salah',
+                        'success' => false
                     ], 404);
                 } else {
                     if ($farmer->block == 'Y') {
                         return response()->json([
-                            'messages' => 'Akun anda telah diblokir'
+                            'messages' => 'Akun anda telah diblokir',
+                            'success' => false
                         ], 403);
                     } else if ($farmer->status != 'approve') {
                         return response()->json([
-                            'messages' => 'Akun anda telah di tolak atau belum disetujui'
+                            'messages' => 'Akun anda telah di tolak atau belum disetujui',
+                            'success' => false
                         ], 403);
                     } else {
 
@@ -90,7 +93,8 @@ class AuthController extends Controller
 
             if ($validator->fails()) {
                 return response()->json([
-                    'messages' => $validator->messages()
+                    'messages' => $validator->messages(),
+                    'success' => false
                 ], 400);
             } else {
                 try {
@@ -165,7 +169,8 @@ class AuthController extends Controller
 
             if ($validator->fails()) {
                 return response()->json([
-                    'messages' => $validator->messages()
+                    'messages' => $validator->messages(),
+                    'success' => false
                 ], 400);
             } else {
                 try {

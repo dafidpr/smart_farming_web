@@ -42,7 +42,8 @@ class FarmerController extends Controller
 
             if ($validator->fails()) {
                 return response()->json([
-                    'messages' => $validator->messages()
+                    'messages' => $validator->messages(),
+                    'success' => false
                 ], 400);
             } else {
                 try {
