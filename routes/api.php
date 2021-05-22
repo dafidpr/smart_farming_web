@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FarmerController;
+use App\Http\Controllers\API\SensorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::post('/register', [AuthController::class, 'registerFarmer']);
+Route::post('/sensore-store', [SensorController::class, 'store']);
