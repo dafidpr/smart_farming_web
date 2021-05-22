@@ -40,6 +40,7 @@ class AuthController extends Controller
 
                         $token = $farmer->createToken('token-name')->plainTextToken;
                         return response()->json([
+                            'success' => true,
                             'message' => 'Berhasil Login',
                             'data' => $farmer,
                             '_token' => $token
