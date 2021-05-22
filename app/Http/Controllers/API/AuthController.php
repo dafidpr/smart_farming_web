@@ -49,7 +49,8 @@ class AuthController extends Controller
                 }
             } catch (Exeption $e) {
                 return response()->json([
-                    'messages' => 'Opps! Terjadi kesalahan.'
+                    'messages' => 'Opps! Terjadi kesalahan.',
+                    'success' => false
                 ], 409);
             }
         } else {
@@ -113,10 +114,12 @@ class AuthController extends Controller
 
                     return response()->json([
                         'messages'  => ' Petani baru berhasil ditambahkan',
+                        'success' => true
                     ], 200);
                 } catch (Exeption $e) {
                     return response()->json([
-                        'messages' => 'Opps! Terjadi kesalahan'
+                        'messages' => 'Opps! Terjadi kesalahan',
+                        'success' => false
                     ], 409);
                 }
             }
@@ -131,6 +134,8 @@ class AuthController extends Controller
         $farmer->currentAccessToken()->delete();
         return response()->json([
             'messages'  => 'Berhasil logout',
+            'success' => true,
+            'token' => $farmer->_token
         ], 200);
     }
 
@@ -167,11 +172,13 @@ class AuthController extends Controller
                     Farmer::where('id', $farmer->id)->update(['password' => Hash::make($request->new_password)]);
                     return response()->json([
                         'messages'  => 'Password berhasil diubah',
+                        'success' => true
 
                     ], 200);
                 } catch (Exeption $e) {
                     return response()->json([
-                        'messages' => 'Opps! Terjadi kesalahan'
+                        'messages' => 'Opps! Terjadi kesalahan',
+                        'success' => false
                     ], 409);
                 }
             }

@@ -15,11 +15,12 @@ class FarmerController extends Controller
             try {
                 return response()->json([
                     'data'  => Farmer::all(),
-
+                    'success' => true,
                 ], 200);
             } catch (Exeption $e) {
                 return response()->json([
-                    'messages' => 'Opps! Terjadi kesalahan'
+                    'messages' => 'Opps! Terjadi kesalahan',
+                    'success' => false
                 ], 409);
             }
         } else {
@@ -59,10 +60,12 @@ class FarmerController extends Controller
 
                     return response()->json([
                         'messages'  => ' Petani baru berhasil diubah',
+                        'success' => true
                     ], 200);
                 } catch (Exeption $e) {
                     return response()->json([
-                        'messages' => 'Opps! Terjadi kesalahan'
+                        'messages' => 'Opps! Terjadi kesalahan',
+                        'success' => false
                     ], 409);
                 }
             }
