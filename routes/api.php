@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ControlController;
 use App\Http\Controllers\API\FarmerController;
 use App\Http\Controllers\API\SensorController;
 use Illuminate\Http\Request;
@@ -30,3 +31,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::post('/register', [AuthController::class, 'registerFarmer']);
 Route::post('/sensore-store', [SensorController::class, 'store']);
+Route::post('/lamp-status', [ControlController::class, 'getStatus']);
+Route::post('/lamp-status-update', [ControlController::class, 'lampStatusUpdate']);

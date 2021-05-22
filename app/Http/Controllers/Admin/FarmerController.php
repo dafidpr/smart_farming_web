@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Control;
 use App\Models\Farmer;
 use Exception;
 use Illuminate\Http\Request;
@@ -267,6 +268,7 @@ class FarmerController extends Controller
                 $farmer = Farmer::where('id', $ids[0])->update(['status' => 'approve']);
                 $serialNumberFarmer = Farmer::find($ids[0]);
                 Device::where('serial_number', $serialNumberFarmer->serial_number)->update(['is_used' => 'Y']);
+                Control::create(['serial_number' => $serialNumberFarmer->serial_number, 'status' => 0]);
 
                 return response()->json([
                     'messages' => 'Data berhasil di approve'
