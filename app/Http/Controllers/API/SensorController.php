@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Control;
 use App\Models\Sensor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,8 @@ class SensorController extends Controller
 
                 return response()->json([
                     'messages'  => ' Sensor berhasil ditambahkan',
-                    'success' => true
+                    'success' => true,
+                    'data'  => Control::where('serial_number', $request->serial_number)->first(),
                 ], 200);
             } catch (Exeption $e) {
                 return response()->json([

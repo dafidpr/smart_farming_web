@@ -108,7 +108,7 @@ class FarmerController extends Controller
                         'block' => $request->block,
                         'status' => 'approve',
                     ]);
-                    Control::create(['serial_number' => $request->serial_number, 'status' => 0]);
+                    Control::create(['serial_number' => $request->serial_number, 'condition' => 0]);
                     Device::where('serial_number', $request->serial_number)->update(['is_used' => 'Y']);
 
                     return response()->json([
@@ -283,7 +283,7 @@ class FarmerController extends Controller
                 $farmer = Farmer::where('id', $ids[0])->update(['status' => 'approve']);
                 $serialNumberFarmer = Farmer::find($ids[0]);
                 Device::where('serial_number', $serialNumberFarmer->serial_number)->update(['is_used' => 'Y']);
-                Control::create(['serial_number' => $serialNumberFarmer->serial_number, 'status' => 0]);
+                Control::create(['serial_number' => $serialNumberFarmer->serial_number, 'condition' => 0]);
 
                 return response()->json([
                     'messages' => 'Data berhasil di approve'

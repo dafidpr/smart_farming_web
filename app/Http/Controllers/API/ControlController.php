@@ -32,7 +32,7 @@ class ControlController extends Controller
         if ($request->expectsJson()) {
             try {
                 $findControl = Control::where('serial_number', $request->serial_number)->first();
-                Control::where('serial_number', $request->serial_number)->update(['status' => $findControl->status == 1 ? 0 : 1]);
+                Control::where('serial_number', $request->serial_number)->update(['condition' => $findControl->condition == 1 ? 0 : 1]);
                 return response()->json([
                     'messages'  => 'Control berhasil diperbarui',
                     'success' => true,
