@@ -9,5 +9,5 @@ class Sensor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['serial_number', 'temperature', 'humidity', 'voltage', 'ampere', 'watt'];
+    protected $fillable = ['serial_number', 'temperature', 'humidity', 'voltage', 'current', 'power'];
 }

@@ -19,8 +19,8 @@ class SensorController extends Controller
                     'temperature'  => $request->temperature,
                     'humidity' => $request->humidity,
                     'voltage'  => $request->voltage,
-                    'ampere' => $request->ampere,
-                    'watt' => $request->watt
+                    'current' => $request->current,
+                    'power' => $request->power
                 ]);
 
                 return response()->json([
