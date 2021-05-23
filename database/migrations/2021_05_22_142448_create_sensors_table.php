@@ -15,7 +15,7 @@ class CreateSensorsTable extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->string('serial_number')->nullable()->unique();
+            $table->string('serial_number')->nullable();
             $table->float('temperature')->nullable();
             $table->float('humidity')->nullable();
             $table->float('voltage')->nullable();

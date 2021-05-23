@@ -9,5 +9,5 @@ class Control extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['serial_number', 'status'];
+    protected $fillable = ['serial_number', 'condition'];
 }

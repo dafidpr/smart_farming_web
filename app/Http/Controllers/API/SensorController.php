@@ -26,7 +26,7 @@ class SensorController extends Controller
                 return response()->json([
                     'messages'  => ' Sensor berhasil ditambahkan',
                     'success' => true,
-                    'data'  => Control::where('serial_number', $request->serial_number)->first(),
+                    'condition'  => Control::where('serial_number', $request->serial_number)->first()->condition,
                 ], 200);
             } catch (Exeption $e) {
                 return response()->json([
