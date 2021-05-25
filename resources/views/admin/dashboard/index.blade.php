@@ -120,36 +120,43 @@
                         </div>
                     </div>
                     <div class="nk-tb-list">
-                        <div class="nk-tb-item nk-tb-head">
-                            <div class="nk-tb-col"><span>Nama</span></div>
-                            <div class="nk-tb-col tb-col-sm"><span>Kelompok</span></div>
-                            <div class="nk-tb-col tb-col-lg"><span>Registrasi</span></div>
-                            <div class="nk-tb-col"><span>Status</span></div>
-                            <div class="nk-tb-col"><span>&nbsp;</span></div>
-                        </div>
-                        @foreach ($farmerPending as $item)    
-                            <div class="nk-tb-item">
-                                <div class="nk-tb-col">
-                                    <div class="user-name">
-                                        <span class="tb-lead">{{ $item->name }}</span>
-                                    </div>
-                                </div>
-                                <div class="nk-tb-col tb-col-sm">
-                                    <div class="user-card">
+                        @if ($farmerPending->count() > 0)
+                            <div class="nk-tb-item nk-tb-head">
+                                <div class="nk-tb-col"><span>Nama</span></div>
+                                <div class="nk-tb-col tb-col-sm"><span>Kelompok</span></div>
+                                <div class="nk-tb-col tb-col-lg"><span>Registrasi</span></div>
+                                <div class="nk-tb-col"><span>Status</span></div>
+                                <div class="nk-tb-col"><span>&nbsp;</span></div>
+                            </div>
+                            @foreach ($farmerPending as $item)    
+                                <div class="nk-tb-item">
+                                    <div class="nk-tb-col">
                                         <div class="user-name">
-                                            <span class="tb-lead">{{ $item->farmerGroup->name }}</span>
+                                            <span class="tb-lead">{{ $item->name }}</span>
                                         </div>
                                     </div>
+                                    <div class="nk-tb-col tb-col-sm">
+                                        <div class="user-card">
+                                            <div class="user-name">
+                                                <span class="tb-lead">{{ $item->farmerGroup->name }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nk-tb-col tb-col-lg">
+                                        <span class="tb-sub">{{ $item->created_at }}</span>
+                                    </div>
+                                    <div class="nk-tb-col">
+                                        <span class="badge badge-dot badge-warning">Pending</span>
+                                    </div>
+                                    <div class="nk-tb-col nk-tb-col-action"></div>
                                 </div>
-                                <div class="nk-tb-col tb-col-lg">
-                                    <span class="tb-sub">{{ $item->created_at }}</span>
-                                </div>
-                                <div class="nk-tb-col">
-                                    <span class="badge badge-dot badge-warning">Pending</span>
-                                </div>
-                                <div class="nk-tb-col nk-tb-col-action"></div>
+                            @endforeach
+                        @else
+                            <div>
+                                <img src="{{ asset('admin/uploads/img/ilustration/empty.svg') }}" class="mx-auto d-block mt-3 mb-3" width="37%" alt="">
+                                <p class="text-center mb-3">Opps! Data Empty</p>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
                 </div><!-- .card -->
             </div><!-- .col -->
