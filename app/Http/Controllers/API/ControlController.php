@@ -13,7 +13,7 @@ class ControlController extends Controller
         if ($request->expectsJson()) {
             try {
                 return response()->json([
-                    'data'  => Control::where('serial_number', $request->serial_number)->first(),
+                    'condition'  => Control::where('serial_number', $request->serial_number)->first()->condition,
                     'success' => true,
                 ], 200);
             } catch (Exeption $e) {
@@ -36,7 +36,7 @@ class ControlController extends Controller
                 return response()->json([
                     'messages'  => 'Control berhasil diperbarui',
                     'success' => true,
-                    'data'  => Control::where('serial_number', $request->serial_number)->first()
+                    'condition'  => Control::where('serial_number', $request->serial_number)->first()->condition
                 ], 200);
             } catch (Exeption $e) {
                 return response()->json([

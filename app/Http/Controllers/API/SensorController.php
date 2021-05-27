@@ -14,17 +14,30 @@ class SensorController extends Controller
     {
         if ($request->expectsJson()) {
             try {
-                Sensor::create([
-                    'serial_number' => $request->serial_number,
-                    'temperature'  => $request->temperature,
-                    'humidity' => $request->humidity,
-                    'voltage'  => $request->voltage,
-                    'current' => $request->current,
-                    'power' => $request->power
-                ]);
+                $findData = Sensor::where('serial_number', $request->serial_number);
+                if ($findData->count() > 0) {
+
+                    Sensor::where('serial_number', $request->serial_number)->update([
+                        'serial_number' => $request->serial_number,
+                        'temperature'  => $request->temperature,
+                        'humidity' => $request->humidity,
+                        'voltage'  => $request->voltage,
+                        'current' => $request->current,
+                        'power' => $request->power
+                    ]);
+                } else {
+                    Sensor::create([
+                        'serial_number' => $request->serial_number,
+                        'temperature'  => $request->temperature,
+                        'humidity' => $request->humidity,
+                        'voltage'  => $request->voltage,
+                        'current' => $request->current,
+                        'power' => $request->power
+                    ]);
+                }
 
                 return response()->json([
-                    'messages'  => ' Sensor berhasil ditambahkan',
+                    'messages'  => ' Success',
                     'success' => true,
                     'condition'  => Control::where('serial_number', $request->serial_number)->first()->condition,
                 ], 200);
