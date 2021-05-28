@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Control;
 use App\Models\Sensor;
+use App\Models\SensorHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,6 +36,15 @@ class SensorController extends Controller
                         'power' => $request->power
                     ]);
                 }
+
+                SensorHistory::create([
+                    'serial_number' => $request->serial_number,
+                    'temperature'  => $request->temperature,
+                    'humidity' => $request->humidity,
+                    'voltage'  => $request->voltage,
+                    'current' => $request->current,
+                    'power' => $request->power
+                ]);
 
                 return response()->json([
                     'messages'  => ' Success',

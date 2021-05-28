@@ -19,12 +19,12 @@ class CreateFarmersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('name');
-            $table->enum('gender', ['male', 'female']);
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('phone', 15);
             $table->string('email');
             $table->string('birthplace')->nullable();
             $table->date('birthday')->nullable();
-            $table->float('land_area');
+            $table->float('land_area')->nullable();
             $table->string('address')->nullable();
             $table->string('serial_number')->unique();
             $table->enum('block', ['Y', 'N']);
