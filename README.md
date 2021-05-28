@@ -4,6 +4,21 @@ Smart Farming Web App
 
 The following is the API documentation for using the Smart Farming Web App application.
 
+The following is a brief guide on how to use the API:
+
+- [Farmer Register](#1-farmer-register)
+- [Farmer Login](#2-farmer-login)
+- [Farmer Logout](#3-farmer-logout)
+- [Get Farmer Group Data](#4-get-farmer-group-data)
+- [On Off Lamp](#5-on-off-lamp)
+- [Save Sensor Data to the Database](#6-save-sensor-data-to-the-database)
+- [Get Lamp Status](#7-get-lamp-status)
+- [Get Sensor History](#8-get-sensor-history)
+- [Get Temperature and Humidity](#9-get-temperature-and-humidity)
+- [Update Farmer Profile](#10-update-farmer-profile)
+- [Update Password](#11-update-password)
+- [Validation Format Result](#12-validation-format-result)
+
 ### 1. Farmer Register
 Use the following url to register a farmer. Use the POST method
 ```
@@ -11,6 +26,16 @@ http://domain/api/register
 ```
 #### Send Request
 ```
+{
+    "farmer_group_id": "FARMER GROUP ID",
+    "name": "FARMER NAME",
+    "username": "FARMER USERNAME",
+    "password": FARMER PASSWORD,
+    "phone": "FARMER PHONE",
+    "email": "FARMER EMAIL",
+    "land_area": "FARMER LAND AREA",
+    "serial_number": "FARMER SERIAL NUMBER"
+}
 ```
 #### Result
 ```
@@ -39,17 +64,17 @@ http://domain/api/login
     "message": "Berhasil Login",
     "data": {
         "id": 1,
-        "farmer_group_id": 1,
-        "username": "ciko",
-        "name": "Ciko Ciki Tita",
-        "gender": "male",
-        "phone": "085647823847",
-        "email": "ciko@gmail.com",
-        "birthplace": "Banyuwangi",
-        "birthday": "2001-04-21",
-        "land_area": 300,
-        "address": "Banyuwangi",
-        "serial_number": "088888888",
+        "farmer_group_id": FARMER GROUP ID,
+        "username": "USERNAME",
+        "name": "FARMER NAME",
+        "gender": "male/female",
+        "phone": "PHONE NUMBER",
+        "email": "FARMER EMAIL",
+        "birthplace": "FARMER BIRTHPLACE",
+        "birthday": "FARMER BIRTHDAY",
+        "land_area": FARMER LAND AREA,
+        "address": "FARMER ADDRESS",
+        "serial_number": "FARNMER SERIAL NUMBER",
         "block": "N",
         "status": "approve",
         "created_at": "2021-05-28T07:06:03.000000Z",
@@ -83,13 +108,13 @@ http://domain/api/farmer-groups
 {
     "data": [
         {
-            "id": 1,
-            "name": "Kelompok Tani Ngundi Lestari",
-            "chairman": "Supratman",
-            "year_formed": 2020,
-            "address": "Banyuwangi",
-            "latitude": "-8.193727695708944",
-            "longitude": "114.37659274261682",
+            "id": FARMER GROUP ID,
+            "name": "FARMER GROUP NAME",
+            "chairman": "CHAIRMAN",
+            "year_formed": YEAR FORMED,
+            "address": "FARMER GROUP ADDRESS",
+            "latitude": "LATITUDE",
+            "longitude": "LONGITUDE",
             "created_at": "2021-05-28T07:05:26.000000Z",
             "updated_at": "2021-05-28T07:05:26.000000Z"
         }
@@ -267,5 +292,43 @@ http://domain/api/farmers/change-password
 {
     "messages": "Password berhasil diubah",
     "success": true
+}
+```
+
+### 12. Validation Format Result
+Here is the error validation format, this error will fail when the request fails.
+```
+http://domain/api/farmers/change-password
+```
+#### Result
+```
+{
+    "messages": {
+        "farmer_group_id": [
+            "The farmer group id field is required."
+        ],
+        "username": [
+            "The username field is required."
+        ],
+        "password": [
+            "The password field is required."
+        ],
+        "name": [
+            "The name field is required."
+        ],
+        "phone": [
+            "The phone field is required."
+        ],
+        "email": [
+            "The email field is required."
+        ],
+        "land_area": [
+            "The land area field is required."
+        ],
+        "serial_number": [
+            "The serial number field is required."
+        ]
+    },
+    "success": false
 }
 ```
