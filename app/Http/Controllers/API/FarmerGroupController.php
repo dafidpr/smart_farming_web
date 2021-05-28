@@ -4,16 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SensorHistory;
+use App\Models\FarmerGroup;
 
-class SensorHistoryController extends Controller
+class FarmerGroupController extends Controller
 {
-    public function getSensorHistory(Request $request, $serialNumber)
+    public function getFarmerGroup(Request $request)
     {
         if ($request->expectsJson()) {
             try {
                 return response()->json([
-                    'data'  => SensorHistory::where('serial_number', $serialNumber)->limit(20)->get(),
+                    'data'  => FarmerGroup::all(),
                     'success' => true,
                 ], 200);
             } catch (Exeption $e) {

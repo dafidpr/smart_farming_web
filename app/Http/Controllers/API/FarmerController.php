@@ -9,24 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class FarmerController extends Controller
 {
-    public function getFarmer(Request $request)
-    {
-        if ($request->expectsJson()) {
-            try {
-                return response()->json([
-                    'data'  => Farmer::all(),
-                    'success' => true,
-                ], 200);
-            } catch (Exeption $e) {
-                return response()->json([
-                    'messages' => 'Opps! Terjadi kesalahan',
-                    'success' => false
-                ], 409);
-            }
-        } else {
-            abort(403);
-        }
-    }
 
     public function update(Request $request, $id)
     {

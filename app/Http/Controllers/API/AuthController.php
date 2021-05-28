@@ -72,7 +72,6 @@ class AuthController extends Controller
                     'username'  => 'required|unique:farmers,username',
                     'password' => 'required',
                     'name'  => 'required',
-                    'gender' => 'required',
                     'phone' => 'required',
                     'email' => 'required',
                     'land_area' => 'required|numeric',
@@ -84,7 +83,6 @@ class AuthController extends Controller
                             }
                         }
                     }],
-                    'address' => 'required'
                 ],
                 [
                     'serial_number.exists' => 'Serial number tidak ditemukan'

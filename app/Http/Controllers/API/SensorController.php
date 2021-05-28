@@ -61,4 +61,23 @@ class SensorController extends Controller
             abort(403);
         }
     }
+
+    public function getTemperatureHumidity(Request $request, $serialNumber)
+    {
+        if ($request->expectsJson()) {
+            try {
+                return response()->json([
+                    'data'  => Sensor::where('serial_number', $serialNumber)->first(),
+                    'success' => true,
+                ], 200);
+            } catch (Exeption $e) {
+                return response()->json([
+                    'messages' => 'Opps! Terjadi kesalahan',
+                    'success' => false
+                ], 409);
+            }
+        } else {
+            abort(403);
+        }
+    }
 }

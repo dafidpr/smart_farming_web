@@ -5,6 +5,7 @@ use App\Http\Controllers\API\ControlController;
 use App\Http\Controllers\API\FarmerController;
 use App\Http\Controllers\API\SensorController;
 use App\Http\Controllers\API\SensorHistoryController;
+use App\Http\Controllers\API\FarmerGroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,14 +25,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/farmer/getFarmer', [FarmerController::class, 'getFarmer']);
-    Route::get('/sensor-history/{serial_number}/getSensorHistory', [SensorHistoryController::class, 'getSensorHistory']);
-    Route::patch('/farmer/{id}/update', [FarmerController::class, 'update']);
-    Route::patch('/farmer/change-password', [AuthController::class, 'updatePassword']);
-    Route::post('/lamp-status-update', [ControlController::class, 'lampStatusUpdate']);
+    Route::get('/logout', [AuthController::class, 'logout']); //done
+    Route::get('/sensor-histories/{serial_number}/getSensorHistory', [SensorHistoryController::class, 'getSensorHistory']); //done
+    Route::get('/sensor/{serial_number}/getTemperatureHumidity', [SensorController::class, 'getTemperatureHumidity']); //done
+    Route::post('/farmers/{id}/update', [FarmerController::class, 'update']);
+    Route::post('/farmers/change-password', [AuthController::class, 'updatePassword']);
+    Route::post('/lamp-status-update', [ControlController::class, 'lampStatusUpdate']); //done
 });
-Route::post('/login', [AuthController::class, 'postLogin']);
-Route::post('/register', [AuthController::class, 'registerFarmer']);
-Route::post('/sensore-store', [SensorController::class, 'store']);
-Route::post('/lamp-status', [ControlController::class, 'getStatus']);
+Route::post('/login', [AuthController::class, 'postLogin']); // done
+Route::post('/register', [AuthController::class, 'registerFarmer']); // done
+Route::get('/farmer-groups', [FarmerGroupController::class, 'getFarmerGroup']); // done
+Route::post('/sensore-store', [SensorController::class, 'store']); // done
+Route::post('/lamp-status', [ControlController::class, 'getStatus']); //done
