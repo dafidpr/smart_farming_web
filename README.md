@@ -106,7 +106,7 @@ http://domain/api/farmer-groups
 #### Result
 ```
 {
-    "data": [
+    [
         {
             "id": FARMER GROUP ID,
             "name": "FARMER GROUP NAME",
@@ -118,8 +118,7 @@ http://domain/api/farmer-groups
             "created_at": "2021-05-28T07:05:26.000000Z",
             "updated_at": "2021-05-28T07:05:26.000000Z"
         }
-    ],
-    "success": true
+    ]
 }
 ```
 
