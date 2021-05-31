@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FarmerGroupController;
+use App\Http\Controllers\Admin\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,16 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
         Route::post('{id}/block', [FarmerController::class, 'blockFarmer'])->middleware('can:update-farmers');
         Route::post('{id}/approve', [FarmerController::class, 'approve'])->middleware('can:update-farmers');
         Route::post('{id}/reject', [FarmerController::class, 'reject'])->middleware('can:update-farmers');
+
+        // Schedules
+        Route::get('schedules/{id}/create', [ScheduleController::class, 'index'])->middleware('can:read-schedules');
+        Route::post('schedules/store', [ScheduleController::class, 'store'])->middleware('can:create-schedules');
+        Route::get('schedules/{id}/show', [ScheduleController::class, 'show'])->middleware('can:update-schedules');
+        Route::post('schedules/{id}/update', [ScheduleController::class, 'update'])->middleware('can:update-schedules');
+        Route::post('schedules/{id}/setSchedule', [ScheduleController::class, 'setSchedule'])->middleware('can:update-schedules');
+        Route::delete('schedules/{id}/delete', [ScheduleController::class, 'destroy'])->middleware('can:delete-schedules');
     });
+
 
     // Settings
     Route::prefix('settings')->group(function () {

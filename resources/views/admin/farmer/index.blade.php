@@ -50,36 +50,10 @@
                                     <p>Semua data petani yang petani ada pada halaman ini.</p>
                                 </div><!-- .nk-block-head -->
                                 <div class="card-inner-group">
-                                    {{-- <div class="card-inner position-relative card-tools-toggle">
-                                        <div class="card-title-group">
-                                            <div class="card-tools">
-                                                @can('delete-farmers')     
-                                                <div class="form-inline flex-nowrap gx-3">
-                                                    <div class="form-wrap w-150px">
-                                                        <select class="form-select form-select-sm" name="action" data-search="off" data-placeholder="Bulk Action">
-                                                            <option value="">Bulk Action</option>
-                                                            <option value="delete">Delete</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="btn-wrap">
-                                                        <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light bulk-action" data-url="/administrator/farmers/multipleDelete">Apply</button></span>
-                                                        <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon bulk-action" data-url="/administrator/farmers/multipleDelete"><em class="icon ni ni-arrow-right"></em></button></span>
-                                                    </div>
-                                                </div><!-- .form-inline -->
-                                                @endcan
-                                            </div><!-- .card-tools -->
-                                        </div><!-- .card-title-group -->
-                                    </div><!-- .card-inner --> --}}
                                     <div class="card-inner p-4">
                                         <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="">
                                             <thead class="nk-tb-head bg-light-table">
                                                 <tr class="nk-tb-item">
-                                                    {{-- <th class="nk-tb-col nk-tb-col-check">
-                                                        <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                            <input type="checkbox" class="custom-control-input" id="uid">
-                                                            <label class="custom-control-label" for="uid"></label>
-                                                        </div>
-                                                    </th> --}}
                                                     <th class="nk-tb-col"><span class="sub-text">Nama Petani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Kelompok Tani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Nomor Telp</span></th>
@@ -92,12 +66,6 @@
                                             <tbody>
                                                 @foreach ($farmers as $item) 
                                                     <tr class="nk-tb-item">
-                                                        {{-- <td class="nk-tb-col nk-tb-col-check">
-                                                            <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                                <input type="checkbox" class="custom-control-input uid deleteItems" value="{{ $item->id }}" id="uid{{ $loop->iteration  }}">
-                                                                <label class="custom-control-label" for="uid{{ $loop->iteration  }}"></label>
-                                                            </div>
-                                                        </td> --}}
                                                         <td class="nk-tb-col">
                                                             <div>
                                                                 <div class="user-card">
@@ -133,6 +101,9 @@
                                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <ul class="link-list-opt no-bdr">
+                                                                                    @can('read-schedules')
+                                                                                        <li><a href="/administrator/farmers/schedules/{{ Hashids::encode($item->id) }}/create" class="ajaxAction"><em class="icon ni ni-plus"></em><span>Penjadwalan</span></a></li> 
+                                                                                    @endcan
                                                                                     @can('update-farmers')
                                                                                         <li><a href="/administrator/farmers/{{ Hashids::encode($item->id) }}/edit" class="ajaxAction"><em class="icon ni ni-edit"></em><span>Edit  Petani</span></a></li> 
                                                                                     @endcan
@@ -167,36 +138,10 @@
                                     <p>Semua permintaan registrasi petani ada pada halaman ini.</p>
                                 </div><!-- .nk-block-head -->
                                 <div class="card-inner-group">
-                                    {{-- <div class="card-inner position-relative card-tools-toggle">
-                                        <div class="card-title-group">
-                                            <div class="card-tools">
-                                                @can('delete-farmers')     
-                                                <div class="form-inline flex-nowrap gx-3">
-                                                    <div class="form-wrap w-150px">
-                                                        <select class="form-select form-select-sm" name="action" data-search="off" data-placeholder="Bulk Action">
-                                                            <option value="">Bulk Action</option>
-                                                            <option value="delete">Delete</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="btn-wrap">
-                                                        <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light bulk-action" data-url="/administrator/farmers/multipleDelete">Apply</button></span>
-                                                        <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon bulk-action" data-url="/administrator/farmers/multipleDelete"><em class="icon ni ni-arrow-right"></em></button></span>
-                                                    </div>
-                                                </div><!-- .form-inline -->
-                                                @endcan
-                                            </div><!-- .card-tools -->
-                                        </div><!-- .card-title-group -->
-                                    </div><!-- .card-inner --> --}}
                                     <div class="card-inner p-4">
                                         <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="">
                                             <thead class="nk-tb-head bg-light-table">
                                                 <tr class="nk-tb-item">
-                                                    {{-- <th class="nk-tb-col nk-tb-col-check">
-                                                        <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                            <input type="checkbox" class="custom-control-input" id="uid">
-                                                            <label class="custom-control-label" for="uid"></label>
-                                                        </div>
-                                                    </th> --}}
                                                     <th class="nk-tb-col"><span class="sub-text">Nama Kelompok Tani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Kelompok Tani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Nomor Telp</span></th>
@@ -209,12 +154,6 @@
                                             <tbody>
                                                 @foreach ($farmerPending as $item) 
                                                     <tr class="nk-tb-item">
-                                                        {{-- <td class="nk-tb-col nk-tb-col-check">
-                                                            <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                                <input type="checkbox" class="custom-control-input uid deleteItems" value="{{ $item->id }}" id="uid{{ $loop->iteration  }}">
-                                                                <label class="custom-control-label" for="uid{{ $loop->iteration  }}"></label>
-                                                            </div>
-                                                        </td> --}}
                                                         <td class="nk-tb-col">
                                                             <div>
                                                                 <div class="user-card">
@@ -284,36 +223,10 @@
                                     <p>Semua petani yang registrasinya di tolak ada di sini.</p>
                                 </div><!-- .nk-block-head -->
                                 <div class="card-inner-group">
-                                    {{-- <div class="card-inner position-relative card-tools-toggle">
-                                        <div class="card-title-group">
-                                            <div class="card-tools">
-                                                @can('delete-farmer-groups')     
-                                                <div class="form-inline flex-nowrap gx-3">
-                                                    <div class="form-wrap w-150px">
-                                                        <select class="form-select form-select-sm" name="action" data-search="off" data-placeholder="Bulk Action">
-                                                            <option value="">Bulk Action</option>
-                                                            <option value="delete">Delete</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="btn-wrap">
-                                                        <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light bulk-action" data-url="/administrator/farmers/multipleDelete">Apply</button></span>
-                                                        <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon bulk-action" data-url="/administrator/farmers/multipleDelete"><em class="icon ni ni-arrow-right"></em></button></span>
-                                                    </div>
-                                                </div><!-- .form-inline -->
-                                                @endcan
-                                            </div><!-- .card-tools -->
-                                        </div><!-- .card-title-group -->
-                                    </div><!-- .card-inner --> --}}
                                     <div class="card-inner p-4">
                                         <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false" id="">
                                             <thead class="nk-tb-head bg-light-table">
                                                 <tr class="nk-tb-item">
-                                                    {{-- <th class="nk-tb-col nk-tb-col-check">
-                                                        <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                            <input type="checkbox" class="custom-control-input" id="uid">
-                                                            <label class="custom-control-label" for="uid"></label>
-                                                        </div>
-                                                    </th> --}}
                                                     <th class="nk-tb-col"><span class="sub-text">Nama Kelompok Tani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Kelompok Tani</span></th>
                                                     <th class="nk-tb-col tb-col-mb"><span class="sub-text">Nomor Telp</span></th>
@@ -326,12 +239,6 @@
                                             <tbody>
                                                 @foreach ($farmerReject as $item) 
                                                     <tr class="nk-tb-item">
-                                                        {{-- <td class="nk-tb-col nk-tb-col-check">
-                                                            <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                                <input type="checkbox" class="custom-control-input uid deleteItems" value="{{ $item->id }}" id="uid{{ $loop->iteration  }}">
-                                                                <label class="custom-control-label" for="uid{{ $loop->iteration  }}"></label>
-                                                            </div>
-                                                        </td> --}}
                                                         <td class="nk-tb-col">
                                                             <div>
                                                                 <div class="user-card">

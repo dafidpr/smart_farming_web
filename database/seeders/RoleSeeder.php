@@ -32,6 +32,7 @@ class RoleSeeder extends Seeder
         $developerRole->givePermissionTo(['read-farmer-groups', 'create-farmer-groups', 'update-farmer-groups', 'delete-farmer-groups']);
         $developerRole->givePermissionTo(['read-farmers', 'create-farmers', 'update-farmers', 'delete-farmers']);
         $developerRole->givePermissionTo(['read-devices', 'create-devices', 'update-devices', 'delete-devices']);
+        $developerRole->givePermissionTo(['read-schedules', 'create-schedules', 'update-schedules', 'delete-schedules']);
         $developerRole->givePermissionTo(['read-mappings']);
         $developerRole->givePermissionTo(['read-settings', 'update-settings']);
         $developerRole->givePermissionTo('read-dashboard');
