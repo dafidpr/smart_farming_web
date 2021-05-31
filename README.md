@@ -172,8 +172,15 @@ http://domain/api/sensor-store
 ### 7. Get Lamp Status 
 Use the following url to get the lamp status in the database. If condition is 1 then the lamp is on, if condition is 0 then the lamp is off. Use POST method.
 This URL is used on Arduino.
+
+#### For Mobile
 ```
-http://domain/api/sensor-store
+http://domain/api/get-lamp-status-for mobile
+```
+
+#### For Arduino
+```
+http://domain/api/get-lamp-status-for arduino
 ```
 #### Send Request
 ```
