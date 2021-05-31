@@ -175,12 +175,12 @@ This URL is used on Arduino.
 
 #### For Mobile
 ```
-http://domain/api/get-lamp-status-for mobile
+http://domain/api/get-lamp-status-for-mobile
 ```
 
 #### For Arduino
 ```
-http://domain/api/get-lamp-status-for arduino
+http://domain/api/get-lamp-status-for-arduino
 ```
 #### Send Request
 ```
