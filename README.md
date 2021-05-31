@@ -40,7 +40,7 @@ http://domain/api/register
 #### Result
 ```
 {
-    "messages": " Petani baru berhasil ditambahkan",
+    "messages": "Petani baru berhasil ditambahkan",
     "success": true
 }
 ```
@@ -106,7 +106,7 @@ http://domain/api/farmer-groups
 #### Result
 ```
 {
-    "data": [
+    [
         {
             "id": FARMER GROUP ID,
             "name": "FARMER GROUP NAME",
@@ -118,8 +118,7 @@ http://domain/api/farmer-groups
             "created_at": "2021-05-28T07:05:26.000000Z",
             "updated_at": "2021-05-28T07:05:26.000000Z"
         }
-    ],
-    "success": true
+    ]
 }
 ```
 
@@ -261,9 +260,9 @@ http://domain/api/farmers/YOUR_ID_FARMER/update
     "phone": "YOUR PHONE NUMBER",
     "email": "YOUR EMAIL",
     "birthplace": "BIRTHPLACE",
-    "birthday": "1987-09-",
-    "land_area": "2000",
-    "address": "Songgon, Banyuwangi"
+    "birthday": "BOIRTHDAY",
+    "land_area": "LAND AREA",
+    "address": "ADDRESS"
 }
 ```
 #### Result
@@ -297,9 +296,7 @@ http://domain/api/farmers/change-password
 
 ### 12. Validation Format Result
 Here is the error validation format, this error will fail when the request fails.
-```
-http://domain/api/farmers/change-password
-```
+
 #### Result
 ```
 {
