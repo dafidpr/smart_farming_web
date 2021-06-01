@@ -18,6 +18,7 @@ The following is a brief guide on how to use the API:
 - [Update Farmer Profile](#10-update-farmer-profile)
 - [Update Password](#11-update-password)
 - [Validation Format Result](#12-validation-format-result)
+- [Get Schedule](#13-get-schedule)
 
 ### 1. Farmer Register
 Use the following url to register a farmer. Use the POST method
@@ -334,5 +335,31 @@ Here is the error validation format, this error will fail when the request fails
         ]
     },
     "success": false
+}
+```
+
+### 13. Get Schedule
+Here is the code to get the schedule from the application. Use the GET method and get the serial number parameter to identify Arduino.
+
+#### Send Request
+```
+http://domain/api/schedule/{SERIAL NUMBER}/get-schedule-for-arduino
+```
+If the schedule has not been activated.
+#### Result
+```
+{
+    "messages": "Jadwal masih belum di aktifkan!",
+    "success": true
+}
+```
+
+#### Result
+If the schedule has been activated.
+```
+{
+    "schedule_start": "19:58:00",
+    "schedule_end": "20:58:00",
+    "success": true
 }
 ```
