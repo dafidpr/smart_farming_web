@@ -6,6 +6,7 @@ use App\Http\Controllers\API\FarmerController;
 use App\Http\Controllers\API\SensorController;
 use App\Http\Controllers\API\SensorHistoryController;
 use App\Http\Controllers\API\FarmerGroupController;
+use App\Http\Controllers\API\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,4 @@ Route::post('/register', [AuthController::class, 'registerFarmer']); // done
 Route::get('/farmer-groups', [FarmerGroupController::class, 'getFarmerGroup']); // done
 Route::post('/sensore-store', [SensorController::class, 'store']); // done
 Route::post('/get-lamp-status-for-arduino', [ControlController::class, 'getStatus']); //done
+Route::get('/schedule/{serial_number}/get-schedule-for-arduino', [ScheduleController::class, 'getSchedule']);
