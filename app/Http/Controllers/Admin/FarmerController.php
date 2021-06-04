@@ -169,6 +169,13 @@ class FarmerController extends Controller
         $ids = Hashids::decode($id);
         if (\Request::ajax()) {
             $device = Device::where('serial_number', $request->serial_number)->first();
+            $serialNumberFarmer = Farmer::find($ids[0]);
+            $isUsed = false;
+            if (isset($device->is_used)) {
+                if ($device->is_used == 'Y' && $serialNumberFarmer->serial_number != $request->serial_number) {
+                    $isUsed = true;
+                }
+            }
             $validator = Validator::make(
                 $request->all(),
                 [
@@ -179,14 +186,13 @@ class FarmerController extends Controller
                     'phone' => 'required',
                     'email' => 'required',
                     'land_area' => 'required|numeric',
-                    'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
-                        if (isset($device->is_used)) {
-                            if ($device->is_used == 'Y') {
+                    'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($isUsed) {
 
-                                return $fail(__('Serial number has been used'));
-                            }
+                        if ($isUsed) {
+
+                            return $fail(__('Serial number has been used'));
                         }
-                    }]
+                    }],
                 ],
                 [
                     'serial_number.exists' => 'Serial number not found'
@@ -199,7 +205,7 @@ class FarmerController extends Controller
                 ], 400);
             } else {
                 try {
-                    $serialNumberFarmer = Farmer::find($ids[0]);
+
                     Farmer::where('id', $ids[0])->update([
                         'farmer_group_id' => $request->farmer_group_id,
                         'username'  => $request->username,
@@ -216,7 +222,10 @@ class FarmerController extends Controller
                     ]);
                     Control::where('serial_number', $serialNumberFarmer->serial_number)->update(['serial_number' => $request->serial_number]);
                     Device::where('serial_number', $request->serial_number)->update(['is_used' => 'Y']);
-                    Device::where('serial_number', $serialNumberFarmer->serial_number)->update(['is_used' => 'N']);
+                    if ($request->serial_number != $serialNumberFarmer->serial_number) {
+
+                        Device::where('serial_number', $serialNumberFarmer->serial_number)->update(['is_used' => 'N']);
+                    }
 
                     return response()->json([
                         'messages'  => 'Petani baru berhasil diubah',
