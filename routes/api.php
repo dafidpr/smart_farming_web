@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/farmers/change-password', [AuthController::class, 'updatePassword']);
     Route::post('/lamp-status-update', [ControlController::class, 'lampStatusUpdate']); //done
     Route::post('/get-lamp-status-for-mobile', [ControlController::class, 'getStatus']);
+    Route::get('/watt/{serial_number}/get-watt-graphics', [SensorHistoryController::class, 'getWattGraphics']);
 });
 Route::post('/login', [AuthController::class, 'postLogin']); // done
 Route::post('/register', [AuthController::class, 'registerFarmer']); // done

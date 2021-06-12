@@ -73,19 +73,19 @@ class AuthController extends Controller
                     'password' => 'required',
                     'name'  => 'required',
                     'phone' => 'required',
-                    'email' => 'required',
+                    'email' => 'required|email',
                     'land_area' => 'required|numeric',
                     'serial_number' => ['required', 'exists:devices,serial_number', function ($attribute, $value, $fail) use ($device) {
                         if (isset($device->is_used)) {
                             if ($device->is_used == 'Y') {
 
-                                return $fail(__('Serial number sudah pernah digunakan.'));
+                                return $fail(__('The serial number has been used'));
                             }
                         }
                     }],
                 ],
                 [
-                    'serial_number.exists' => 'Serial number tidak ditemukan'
+                    'serial_number.exists' => 'Serial number not found'
                 ]
             );
 
