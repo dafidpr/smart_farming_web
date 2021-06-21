@@ -31,13 +31,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/sensor/{serial_number}/getTemperatureHumidity', [SensorController::class, 'getTemperatureHumidity']); //done
     Route::post('/farmers/{id}/update', [FarmerController::class, 'update']);
     Route::post('/farmers/change-password', [AuthController::class, 'updatePassword']);
-    Route::post('/lamp-status-update', [ControlController::class, 'lampStatusUpdate']); //done
-    Route::post('/get-lamp-status-for-mobile', [ControlController::class, 'getStatus']);
+    Route::post('/control-update', [ControlController::class, 'controlUpdate']); //done
+    Route::post('/get-control-status', [ControlController::class, 'getStatus']);
     Route::get('/watt/{serial_number}/get-watt-graphics', [SensorHistoryController::class, 'getWattGraphics']);
 });
 Route::post('/login', [AuthController::class, 'postLogin']); // done
 Route::post('/register', [AuthController::class, 'registerFarmer']); // done
 Route::get('/farmer-groups', [FarmerGroupController::class, 'getFarmerGroup']); // done
 Route::post('/sensore-store', [SensorController::class, 'store']); // done
-Route::post('/get-lamp-status-for-arduino', [ControlController::class, 'getStatus']); //done
+Route::post('/control-status', [ControlController::class, 'getStatus']); //done
 Route::get('/schedule/{serial_number}/get-schedule-for-arduino', [ScheduleController::class, 'getSchedule']);

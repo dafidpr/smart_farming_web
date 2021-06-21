@@ -45,11 +45,13 @@ class SensorController extends Controller
                     'current' => $request->current,
                     'power' => $request->power
                 ]);
+                $control = Control::where('serial_number', $request->serial_number)->first();
 
                 return response()->json([
                     'messages'  => ' Success',
                     'success' => true,
-                    'condition'  => Control::where('serial_number', $request->serial_number)->first()->condition,
+                    'lamp'  => $control->lamp,
+                    'pump'  => $control->pump
                 ], 200);
             } catch (Exeption $e) {
                 return response()->json([

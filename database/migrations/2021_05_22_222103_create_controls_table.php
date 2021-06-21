@@ -16,7 +16,8 @@ class CreateControlsTable extends Migration
         Schema::create('controls', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number');
-            $table->integer('condition');
+            $table->integer('lamp');
+            $table->integer('pump');
             $table->timestamps();
         });
     }

@@ -32,10 +32,11 @@ class SensorHistoryController extends Controller
     {
         if ($request->expectsJson()) {
             try {
-                $querySQL = "SELECT power,  DATE_FORMAT(created_at, '%M') as bulan 
-                                FROM sensor_histories 
-                                WHERE id IN (SELECT MAX(id) FROM sensor_histories GROUP BY MONTH(created_at)) 
-                                AND serial_number = '$serialNumber' LIMIT 7";
+                $querySQL = "SELECT SUM(power) as power,  DATE_FORMAT(created_at, '%b') as bulan 
+                                FROM sensor_histories WHERE id IN (SELECT MAX(id) FROM sensor_histories 
+                                GROUP BY DATE_FORMAT(created_at, '%d')) AND serial_number = '$serialNumber' 
+                                AND DATE_FORMAT(created_at, '%Y') = " . date('Y') . " GROUP BY DATE_FORMAT(created_at, '%m')";
+
                 return response()->json([
                     'data'  => DB::select($querySQL),
                     'success' => true,
